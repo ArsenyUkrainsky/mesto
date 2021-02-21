@@ -1,0 +1,8 @@
+.root {
+  max-width: 1280px;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}

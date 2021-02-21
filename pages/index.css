@@ -1,0 +1,19 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
+
+@import url(../blocks/root/root.css);
+/* Блок шапки страницы */
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__position/header__position.css);
+@import url(../blocks/header/__logo/header__logo.css);
+/* Подключение блоков профиля с именем аватаром и характеристикой */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__info-edit/profile__info-edit.css);
+@import url(../blocks/profile/__info-name/profile__info-name.css);
+@import url(../blocks/profile/__characteristic/profile__characteristic.css);
+/* Кнопка редактирования профиля */
+@import url(../blocks/profile/__button-edit/profile__button-edit.css);
+/* Кнопка добавления карточек */
+@import url(../blocks/profile/__button-add/profile__button-add.css);

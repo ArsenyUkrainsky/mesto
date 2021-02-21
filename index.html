@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mesto" />
+    <meta name="keywords" content="место, интерактивная страница" />
+    <meta name="author" content="Арсений Украинский" />
+    <link rel="stylesheet" href="pages/index.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="root">
+    <header class="header header__position">
+      <img class="header__logo" src="./images/logo.png" alt="Место" />
+    </header>
+
+    <main>
+      <section class="profile">
+        <img class="profile__avatar" src="./images/image-avatar.jpg" alt="Аватар пользователя" />
+        <div class="profile__info">
+          <div class="profile__info-edit">
+            <h1 class="profile__info-name">Жак-Ив Кусто</h1>
+            <button class="button profile__button-edit" type="button"></button>
+          </div>
+          <p class="profile__characteristic">Исследователь океана</p>
+        </div>
+        <button class="button profile__button-add" type="button"></button>
+      </section>
+
+      <ul class="elements">
+        <li class="element">
+          <img
+            src="./images/Военно-Грузинская дорога.jpg"
+            alt="Военно-Грузинская дорога"
+            class="element__image"
+          />
+          <div class="element__group">
+            <h2 class="element__text">Военно-Грузинская дорога</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+
+        <li class="element">
+          <img
+            src="./images/Тегеранский базар.jpg"
+            alt="Тегеранский базар"
+            class="element__image"
+          />
+          <div class="element__group">
+            <h2 class="element__text">Тегеранский базар</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+
+        <li class="element">
+          <img src="./images/Эгюий-дю-Миди.jpg" alt="Эгюий-дю-Миди" class="element__image" />
+          <div class="element__group">
+            <h2 class="element__text">Эгюий-дю-Миди</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+
+        <li class="element">
+          <img src="./images/город Манарола.jpg" alt="город Манарола" class="element__image" />
+          <div class="element__group">
+            <h2 class="element__text">город Манарола</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+
+        <li class="element">
+          <img src="./images/Оне́жское о́зеро.jpg" alt="Оне́жское о́зеро" class="element__image" />
+          <div class="element__group">
+            <h2 class="element__text">Оне́жское о́зеро</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+
+        <li class="element">
+          <img src="./images/Сочи.jpg" alt="Сочи" class="element__image" />
+          <div class="element__group">
+            <h2 class="element__text">Сочи</h2>
+            <div class="element__like"></div>
+          </div>
+        </li>
+      </ul>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+    </footer>
+    <script src="./scripts/Index.js"></script>
+  </body>
+</html>

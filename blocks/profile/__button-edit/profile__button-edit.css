@@ -1,0 +1,9 @@
+.profile__button-edit {
+  background-image: url(/images/Edit\ Button.png);
+  background-size: cover;
+  object-fit: cover;
+  width: 24px;
+  min-height: fit-content;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
