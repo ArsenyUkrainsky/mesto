@@ -29,4 +29,10 @@
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
 /* Всплывающее окно редактирования данных */
-@import url(../);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__close/popup__close.css);
+
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/root/_scroll/root_scroll.css);
