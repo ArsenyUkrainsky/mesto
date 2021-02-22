@@ -4,4 +4,12 @@
   background-size: contain;
   width: 22px;
   height: 19px;
+  cursor: pointer;
+}
+.element__like:hover {
+  opacity: 0.5;
+}
+.element__like:active {
+  background-image: url(./Union.svg);
+  opacity: 1;
 }
