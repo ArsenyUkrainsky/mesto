@@ -21,11 +21,11 @@
         <div class="profile__info">
           <div class="profile__info-edit">
             <h1 class="profile__info-name">Жак-Ив Кусто</h1>
-            <button class="button profile__button-edit" type="button"></button>
+            <button class="profile__button-edit" type="button"></button>
           </div>
           <p class="profile__characteristic">Исследователь океана</p>
         </div>
-        <button class="button profile__button-add" type="button"></button>
+        <button class="profile__button-add" type="button"></button>
       </section>
 
       <ul class="elements">
@@ -37,7 +37,7 @@
           />
           <div class="element__group">
             <h2 class="element__title">Военно-Грузинская дорога</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
 
@@ -49,7 +49,7 @@
           />
           <div class="element__group">
             <h2 class="element__title">Тегеранский базар</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
 
@@ -57,7 +57,7 @@
           <img src="./images/Эгюий-дю-Миди.jpg" alt="Эгюий-дю-Миди" class="element__image" />
           <div class="element__group">
             <h2 class="element__title">Эгюий-дю-Миди</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
 
@@ -65,7 +65,7 @@
           <img src="./images/город Манарола.jpg" alt="город Манарола" class="element__image" />
           <div class="element__group">
             <h2 class="element__title">город Манарола</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
 
@@ -73,7 +73,7 @@
           <img src="./images/Оне́жское о́зеро.jpg" alt="Оне́жское о́зеро" class="element__image" />
           <div class="element__group">
             <h2 class="element__title">Оне́жское о́зеро</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
 
@@ -81,7 +81,7 @@
           <img src="./images/Сочи.jpg" alt="Сочи" class="element__image" />
           <div class="element__group">
             <h2 class="element__title">Сочи</h2>
-            <div class="element__like"></div>
+            <button type="button" class="element__like element__like_active"></button>
           </div>
         </li>
       </ul>
@@ -89,14 +89,24 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-
+    <!-- Окно редактирования и отправки данных -->
     <div class="popup">
-      <div class="popup__container">
+      <form class="popup__container">
         <button type="button" class="popup__close"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-      </div>
+        <legend class="popup__title">Редактировать профиль</legend>
+        <fieldset class="popup__fieldset">
+          <input type="text" name="info-name" required class="popup__field popup__field_name" />
+          <input
+            type="text"
+            name="characteristic"
+            required
+            class="popup__field popup__field_characteristic"
+          />
+        </fieldset>
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </form>
     </div>
-
+    <!-- Подключение скрипта -->
     <script src="./scripts/Index.js"></script>
   </body>
 </html>
