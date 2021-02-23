@@ -28,6 +28,11 @@
     max-width: 282px;
   }
 }
+@media screen and (max-width: 475px) {
+  .popup__container {
+    min-height: 320px;;
+  }
+}
 @media screen and (max-width: 288px) {
   .popup__container {
     max-width: 95%;

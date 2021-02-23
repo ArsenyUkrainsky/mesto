@@ -91,17 +91,14 @@
     </footer>
     <!-- Окно редактирования и отправки данных -->
     <div class="popup">
-      <form class="popup__container">
+      <!-- форма в DOM -->
+      <form class="popup__container"> 
         <button type="button" class="popup__close"></button>
         <legend class="popup__title">Редактировать профиль</legend>
+        <!-- поля формы в DOM -->
         <fieldset class="popup__fieldset">
           <input type="text" name="info-name" required class="popup__field popup__field_name" />
-          <input
-            type="text"
-            name="characteristic"
-            required
-            class="popup__field popup__field_characteristic"
-          />
+          <input type="text" name="characteristic" required class="popup__field popup__field_characteristic"/>
         </fieldset>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
