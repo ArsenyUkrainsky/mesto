@@ -16,12 +16,12 @@ let jobInput = formElement.querySelector('.popup__field_characteristic') // Во
 let NameInfo = document.querySelector('.profile__info-name')
 let jobCharacteristic = document.querySelector('.profile__characteristic')
 
-// Функция добавления, удаления классов и скролла страницы
+// Функция добавления, удаления классов и скролла страницы, получение исходных данных текстовых полей
 function showPopup() {
      popup.classList.add('popup_opened')
      scrollsw.classList.toggle('root_scroll')
-     NameInfo.textContent = nameInput.value
-     jobCharacteristic.textContent = jobInput.value
+     nameInput.value = NameInfo.textContent
+     jobInput.value = jobCharacteristic.textContent
 }
 function hidePopup() {
      popup.classList.remove('popup_opened')
@@ -37,9 +37,9 @@ function formSubmitHandler(evt) {
 
      // Получите значение полей jobInput и nameInput из свойства value
      // Вставьте новые значения с помощью textContent
-     // NameInfo.textContent = nameInput.value
-     console.log(NameInfo.textContent)
-     // jobCharacteristic.textContent = jobInput.value
+     NameInfo.textContent = nameInput.value
+     // console.log(NameInfo.textContent)
+     jobCharacteristic.textContent = jobInput.value
      hidePopup()
 }
 // Прикрепляем обработчик к кнопкам:
