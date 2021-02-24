@@ -1,4 +1,12 @@
 .element__like_active:active {
   opacity: 1;
   background-image: url(./Union.svg);
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  border-style: none;
+  list-style: none;
+}
+.element__like_active:focus {
+  outline: none;
 }

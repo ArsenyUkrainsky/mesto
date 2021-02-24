@@ -7,6 +7,7 @@
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
+  outline: none;
 }
 @media screen and (max-width: 768px) {
   .popup__field {

@@ -8,10 +8,14 @@
   border: 1px solid #fff;
   box-sizing: border-box;
   cursor: pointer;
+  outline: none;
 }
 
 .profile__button-edit:hover {
   opacity: 0.6;
+}
+.profile__button-edit:focus {
+  outline: none;
 }
 
 @media screen and (max-width: 425px) {
