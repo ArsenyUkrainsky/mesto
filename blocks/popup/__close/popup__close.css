@@ -13,6 +13,7 @@
   position: absolute;
   top: -48px;
   right: -48px;
+  outline: none;
 }
 .popup__close:hover {
   opacity: 0.6;
