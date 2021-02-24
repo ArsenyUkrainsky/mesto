@@ -8,8 +8,20 @@
   line-height: 17px;
   font-weight: 400;
 }
+@media screen and (max-width: 768px) {
+  .popup__field {
+    width: calc(100% - (430px - 370px));
+  }
+}
 @media screen and (max-width: 425px) {
   .popup__field {
     max-width: 238px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 264px) {
+  .popup__field {
+    /* max-width: 238px; */
+    width: 92%;
   }
 }
