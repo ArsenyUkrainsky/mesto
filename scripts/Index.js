@@ -18,15 +18,15 @@ let jobCharacteristic = document.querySelector('.profile__characteristic')
 
 // Функция добавления, удаления классов и скролла страницы, получение исходных данных текстовых полей
 function showPopup() {
-     popup.classList.add('popup_opened')
+     popup.classList.toggle('popup_opened')
      scrollsw.classList.toggle('root_scroll')
      nameInput.value = NameInfo.textContent
      jobInput.value = jobCharacteristic.textContent
 }
-function hidePopup() {
+/* function hidePopup() {
      popup.classList.remove('popup_opened')
      scrollsw.classList.toggle('root_scroll')
-}
+} */
 // Функция
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -40,12 +40,12 @@ function formSubmitHandler(evt) {
      NameInfo.textContent = nameInput.value
      // console.log(NameInfo.textContent)
      jobCharacteristic.textContent = jobInput.value
-     hidePopup()
+     showPopup()
 }
 // Прикрепляем обработчик к кнопкам:
 // он будет следить за событием “click” - «нажатие»
 PopupButtonEdit.addEventListener('click', showPopup)
-PopupButtonClose.addEventListener('click', hidePopup)
+PopupButtonClose.addEventListener('click', showPopup)
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler)

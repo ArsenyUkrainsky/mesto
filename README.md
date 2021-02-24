@@ -20,4 +20,4 @@
 * Метод querySelector(), события click, submit, функция function
 * Функция добавления, удаления классов и скролла страницы
 
-[Место](https:)
+[Место](https://arseniyukrainskiy.github.io/mesto/)
