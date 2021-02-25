@@ -1,6 +1,6 @@
-.element__like_active:active {
+.element__like_active {
   opacity: 1;
-  background-image: url(./Union.svg);
+  background-image: url(../images/Union.svg);
   outline: none;
   border: none;
   box-sizing: border-box;

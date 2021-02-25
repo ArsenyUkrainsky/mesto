@@ -2,12 +2,25 @@
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
-  margin: 34px 64px 54px 36px;
+  margin: 34px 64px 54px 0;
+}
+@media screen and (max-width: 640px) {
+  .popup__title {
+    margin: 34px auto 54px;
+    width: calc(100% - (430px - 370px));
+  }
 }
 @media screen and (max-width: 425px) {
   .popup__title {
     font-size: 18px;
     line-height: 22px;
     margin: 25px auto 75px;
+    max-width: 238px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 264px) {
+  .popup__title {
+    width: 92%;
   }
 }

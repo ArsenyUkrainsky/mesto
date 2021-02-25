@@ -25,6 +25,7 @@
 
 /* Блок с карточками элементы */
 @import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__places/elements__places.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__group/element__group.css);

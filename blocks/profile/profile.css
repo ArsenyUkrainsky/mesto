@@ -12,3 +12,9 @@
     flex-direction: column;
   }
 }
+@media screen and (max-width: 319px) {
+  .profile {
+    max-width: 320px;
+    width: 90%;
+  }
+}

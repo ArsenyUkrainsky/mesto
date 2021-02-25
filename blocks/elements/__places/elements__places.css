@@ -1,5 +1,5 @@
 /* Блок карточек */
-/* .elements {
+.elements__places {
   max-width: 880px;
   width: 100%;
   margin: 0 auto 67px;
@@ -9,27 +9,23 @@
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
 }
 @media screen and (max-width: 1024px) {
-  .elements {
+  .elements__places {
     width: 90vw;
     grid-template-columns: repeat(auto-fit, minmax(calc(33% - 18px), 1fr));
   }
 }
 
 @media screen and (max-width: 768px) {
-  .elements {
+  .elements__places {
     margin: 0 auto 57px;
     grid-template-columns: repeat(auto-fit, minmax(calc(49% - 18px), 1fr));
   }
 }
 
 @media screen and (max-width: 475px) {
-  .elements {
+  .elements__places {
     width: 100%;
     margin: 0 auto 48px;
     grid-template-columns: 100%;
   }
-}
- */
-.elements {
-  width: 100%;
 }
