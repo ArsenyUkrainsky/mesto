@@ -95,28 +95,30 @@
     <div class="popup">
       <!-- форма в DOM -->
 
-      <form class="popup__container" name="popup-container">
+      <div class="popup__container">
         <button type="button" class="popup__close"></button>
         <h1 class="popup__title">Редактировать профиль</h1>
         <!-- поля формы в DOM -->
-        <fieldset class="popup__fieldset">
-          <input
-            type="text"
-            name="info-name"
-            required
-            class="popup__field popup__field_input_name"
-            placeholder="Имя"
-          />
-          <input
-            type="text"
-            name="characteristic"
-            required
-            class="popup__field popup__field_input_characteristic"
-            placeholder="Профессия"
-          />
-        </fieldset>
-        <button type="submit" class="popup__submit">Сохранить</button>
-      </form>
+        <form class="popup__form" name="popup-form">
+          <fieldset class="popup__fieldset">
+            <input
+              type="text"
+              name="info-name"
+              required
+              class="popup__field popup__field_input_name"
+              placeholder="Имя"
+            />
+            <input
+              type="text"
+              name="characteristic"
+              required
+              class="popup__field popup__field_input_characteristic"
+              placeholder="Профессия"
+            />
+          </fieldset>
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </form>
+      </div>
     </div>
     <!-- Подключение скрипта -->
     <script src="./scripts/index.js"></script>

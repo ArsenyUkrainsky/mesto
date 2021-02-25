@@ -9,7 +9,12 @@
   border: none;
   padding: 0;
   margin: 0;
+  outline: none;
 }
 .element__like:hover {
   opacity: 0.5;
+  transition: 0.8s;
+}
+.element__like:focus {
+  outline: none;
 }
