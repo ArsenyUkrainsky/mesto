@@ -8,23 +8,24 @@ let popup = document.querySelector('.popup');
 // Переменная для отключения скролла страницы во время просмотра окна
 let scrollsw = document.querySelector('.root');
 // Находим форму в DOM
-let formElement = document.querySelector('.popup__container'); // Воспользуйтесь методом querySelector()
+let formElement = document.querySelector('.popup__form'); // Воспользуйтесь методом querySelector() Элемент формы 
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector('.popup__field_input_name'); // Воспользуйтесь инструментом .querySelector()
-let jobInput = formElement.querySelector('.popup__field_input_characteristic'); // Воспользуйтесь инструментом .querySelector()
+let nameInput = formElement.querySelector('.popup__field_input_name'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
+let jobInput = formElement.querySelector('.popup__field_input_characteristic'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 // Выберите элементы, куда должны быть вставлены значения полей
 let nameInfo = document.querySelector('.profile__info-name');
 let jobCharacteristic = document.querySelector('.profile__characteristic');
 
 // Функция добавления, удаления классов и скролла страницы, получение исходных данных текстовых полей
 function showPopup() {
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
   scrollsw.classList.toggle('root_scroll');
   nameInput.value = nameInfo.textContent
   jobInput.value = jobCharacteristic.textContent
 }
+// Лучше все же явно добавлять класс, а при закрытии явно его убирать.
 function hidePopup() {
-     popup.classList.toggle('popup_opened')
+     popup.classList.remove('popup_opened')
      scrollsw.classList.toggle('root_scroll')
 }
 // Функция
