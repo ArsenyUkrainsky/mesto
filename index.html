@@ -92,7 +92,7 @@
     </footer>
 
     <!-- Окно редактирования и отправки данных -->
-    <div class="popup">
+    <div class="popup" id="user">
       <!-- форма в DOM -->
 
       <div class="popup__container">
@@ -119,6 +119,36 @@
           </fieldset>
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
+      </div>
+    </div>
+    
+      <div class="popup" id="cards">
+
+        <div class="popup__container">
+          <button type="button" class="popup__close"></button>
+          <!-- Заголовок первый в блоке, но при этом заголовок h1 может быть только один на странице. Поэтому этот заголовок должен быть h2. -->
+          <h2 class="popup__title">Новое место</h2>
+          <!-- поля формы в DOM -->
+          <form class="popup__form" name="popup-form">
+            <fieldset class="popup__fieldset">
+              <input
+                type="text"
+                name="info-name"
+                required
+                class="popup__field popup__field_input_name"
+                placeholder="Имя"
+              />
+              <input
+                type="text"
+                name="characteristic"
+                required
+                class="popup__field popup__field_input_characteristic"
+                placeholder="Профессия"
+              />
+            </fieldset>
+            <button type="submit" class="popup__submit">Создать</button>
+          </form>
+        </div>
       </div>
     </div>
     <!-- Подключение скрипта -->

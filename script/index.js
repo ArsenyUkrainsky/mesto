@@ -1,20 +1,20 @@
 //***Окно попап */
 // Переменная для выбора кнопки редактирования
-let popupButtonEdit = document.querySelector('.profile__button-edit');
+const popupButtonEdit = document.querySelector('.profile__button-edit');
 // Переменная для выбора кнопки закрытия окна
-let popupButtonClose = document.querySelector('.popup__close');
+const popupButtonClose = document.querySelector('.popup__close');
 // Переменная для окна попап
-let popup = document.querySelector('.popup');
+const popup = document.querySelector('#user');
 // Переменная для отключения скролла страницы во время просмотра окна
-let scrollsw = document.querySelector('.root');
+const scrollsw = document.querySelector('.root');
 // Находим форму в DOM
-let formElement = document.querySelector('.popup__form'); // Воспользуйтесь методом querySelector() Элемент формы 
+const formElement = document.querySelector('.popup__form'); // Воспользуйтесь методом querySelector() Элемент формы 
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector('.popup__field_input_name'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
-let jobInput = formElement.querySelector('.popup__field_input_characteristic'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
+const nameInput = formElement.querySelector('.popup__field_input_name'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
+const jobInput = formElement.querySelector('.popup__field_input_characteristic'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 // Выберите элементы, куда должны быть вставлены значения полей
-let nameInfo = document.querySelector('.profile__info-name');
-let jobCharacteristic = document.querySelector('.profile__characteristic');
+const nameInfo = document.querySelector('.profile__info-name');
+const jobCharacteristic = document.querySelector('.profile__characteristic');
 
 // Функция добавления, удаления классов и скролла страницы, получение исходных данных текстовых полей
 function showPopup() {
