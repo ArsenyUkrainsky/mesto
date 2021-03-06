@@ -1,51 +1,100 @@
-//***Окно попап */
-// Переменная для выбора кнопки редактирования
-const popupButtonEdit = document.querySelector('.profile__button-edit');
-// Переменная для выбора кнопки закрытия окна
-const popupButtonClose = document.querySelector('.popup__close');
-// Переменная для окна попап
-const popup = document.querySelector('#user');
-// Переменная для отключения скролла страницы во время просмотра окна
-const scrollsw = document.querySelector('.root');
-// Находим форму в DOM
-const formElement = document.querySelector('.popup__form'); // Воспользуйтесь методом querySelector() Элемент формы 
-// Находим поля формы в DOM
-const nameInput = formElement.querySelector('.popup__field_input_name'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
-const jobInput = formElement.querySelector('.popup__field_input_characteristic'); // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
-// Выберите элементы, куда должны быть вставлены значения полей
-const nameInfo = document.querySelector('.profile__info-name');
-const jobCharacteristic = document.querySelector('.profile__characteristic');
+const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
+const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
+const popupButtonCloseProfile = document.querySelector('#closeProfile') // Переменная для выбора кнопки закрытия окна
+const popupButtonCloseCards = document.querySelector('#closeCards') // Переменная для выбора кнопки закрытия окна
+const popupUser = document.querySelector('#user') // Переменная для окна попап профиля
+const popupCards = document.querySelector('#cards') // Переменная для окна попап cards
+const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
+const formElement = document.querySelector('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
+const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
+const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
+const nameInfo = document.querySelector('.profile__info-name') // Выберите элементы, куда должны быть вставлены значения полей
+const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
 
-// Функция добавления, удаления классов и скролла страницы, получение исходных данных текстовых полей
-function showPopup() {
-  popup.classList.add('popup_opened');
-  scrollsw.classList.toggle('root_scroll');
-  nameInput.value = nameInfo.textContent
-  jobInput.value = jobCharacteristic.textContent
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    name: 'Челябинская область',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    name: 'Холмогорский район',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+]
+// переменная куда вставлять результат
+const container = document.querySelector('.elements__places')
+// перебор массива
+// на выходе нужен измененный массив
+// результирующий массив - строки
+// нужно отрендерить массив, на каждом объекте шаблонная строка
+function renderList() {
+  const result = initialCards.map(function(item) {
+    return `
+    <li class="element">
+      <img src="./images/Сочи.jpg" alt="Сочи" class="element__image" />
+      <div class="element__group">
+        <h2 class="element__title">${item.name}</h2>
+        <button type="button" class="element__like element__like_active"></button>
+      </div>
+    </li>
+    `;
+   }).join('');
+  //  превращает строку в разметку
+   container.insertAdjacentHTML('afterbegin', result)
 }
-// Лучше все же явно добавлять класс, а при закрытии явно его убирать.
-function hidePopup() {
-     popup.classList.remove('popup_opened')
-     scrollsw.classList.toggle('root_scroll')
+
+renderList();
+
+
+
+
+
+
+
+
+
+const togglePopupWindow = (popup) => {
+  popup.classList.toggle('popup_opened')
+  scrollsw.classList.toggle('root_scroll')
 }
-// Функция
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+popupButtonEdit.addEventListener('click', () => {
+  togglePopupWindow(popupUser)
+})
+popupButtonAdd.addEventListener('click', () => {
+  togglePopupWindow(popupCards)
+})
+popupButtonCloseProfile.addEventListener('click', () => {
+  togglePopupWindow(popupUser)
+})
+popupButtonCloseCards.addEventListener('click', () => {
+  togglePopupWindow(popupCards)
+})
+nameInput.value = nameInfo.textContent
+jobInput.value = jobCharacteristic.textContent
+
 function formSubmitHandler(evt) {
-  evt.preventDefault() // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-
-  // Получите значение полей jobInput и nameInput из свойства value
-  // Вставьте новые значения с помощью textContent
+  evt.preventDefault()
   nameInfo.textContent = nameInput.value
-  // console.log(NameInfo.textContent)
   jobCharacteristic.textContent = jobInput.value
-  hidePopup()
+  togglePopupWindow(popupUser)
 }
-// Прикрепляем обработчик к кнопкам:
-// он будет следить за событием “click” - «нажатие»
-popupButtonEdit.addEventListener('click', showPopup);
-popupButtonClose.addEventListener('click', hidePopup);
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
+
+formElement.addEventListener('submit', formSubmitHandler)
