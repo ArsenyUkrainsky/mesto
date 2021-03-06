@@ -39,6 +39,7 @@ const nameInfo = document.querySelector('.profile__info-name') // Выберит
 const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
 
 const formElement = document.querySelector('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
+const formElementCards = document.querySelector('.popup__form_cards')
 const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
 const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 const container = document.querySelector('.elements__places')
@@ -71,12 +72,12 @@ function renderCards() {
 function addCardListener(evt) {
   evt.preventDefault()
 
-  const inputCardName = formElement.querySelector('.popup__field_input_place')
+  const inputCardName = formElementCards.querySelector('.popup__field_input_place')
   const inputCardNameValue = inputCardName.value
-  const inputCardUrl = formElement.querySelector('.popup__field_input_url')
+  const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
   const inputCardUrlValue = inputCardUrl.value
 
-  const newCard = createCardDomNode({name: inputCardNameValue})
+  const newCard = createCardDomNode({name: inputCardNameValue, link: inputCardUrlValue})
   container.prepend(newCard)
 
 }
@@ -112,4 +113,4 @@ function formSubmitHandler(evt) {
 
 formElement.addEventListener('submit', formSubmitHandler)
 
-popupButtonAdd.addEventListener('submit', addCardListener)
+formElementCards.addEventListener('submit', addCardListener)
