@@ -46,9 +46,31 @@ const container = document.querySelector('.elements__places')
 const templateElement = document.querySelector('.template')
 
 
+function deleteButtonHandler(evt){
+  const elementCardRemove = evt.target.closest('.element')
+  elementCardRemove.remove()
+}
+
+
+function likeButtonHandler(evt){
+  const elementCardLike = evt.target.closest('.element')
+  // console.log(elementCardLike)
+  const elementLike = elementCardLike.querySelector('.element__like')
+  // console.log(elementLike)
+  elementLike.classList.toggle('element__like_active')
+}
+
+function addCardListeners(card) {
+  // console.log('события на месте=:-)')
+  deleteButton = card.querySelector('.element__delete')
+  deleteButton.addEventListener('click', deleteButtonHandler)
+  likeButton = card.querySelector('.element__like')
+  likeButton.addEventListener('click', likeButtonHandler)
+}
+
 // console.log(templateElement)
 
-
+// Создание из шаблона карточки
 function createCardDomNode(item) {
   
   const newItem = templateElement.content.cloneNode(true)
@@ -59,17 +81,20 @@ function createCardDomNode(item) {
   elementImage.setAttribute('src', item.link)
   // console.log(elementImage)
   
-  
-
   return newItem
 }
 // Рендер всего списка карточек
 function renderCards() {
-  const result = initialCards.map(createCardDomNode)
+  const result = initialCards.map((item) => {
+    const newCard = createCardDomNode(item)
+    addCardListeners(newCard)
+    // console.log(item)
+    return newCard
+  })
   container.append(...result) 
 }
 // Рендер одной новой карточки
-function addCardListener(evt) {
+function addFormCardListener(evt) {
   evt.preventDefault()
 
   const inputCardName = formElementCards.querySelector('.popup__field_input_place')
@@ -78,8 +103,12 @@ function addCardListener(evt) {
   const inputCardUrlValue = inputCardUrl.value
 
   const newCard = createCardDomNode({name: inputCardNameValue, link: inputCardUrlValue})
-  container.prepend(newCard)
+  
 
+  addCardListeners(newCard)
+
+  container.prepend(newCard)
+  togglePopupWindow(popupCards)
 }
 renderCards()
 
@@ -104,8 +133,7 @@ nameInput.value = nameInfo.textContent
 jobInput.value = jobCharacteristic.textContent
 
 function formSubmitHandler(evt) {
-  evt.preventDefault()
-  
+  evt.preventDefault()  
   nameInfo.textContent = nameInput.value
   jobCharacteristic.textContent = jobInput.value
   togglePopupWindow(popupUser)
@@ -113,4 +141,4 @@ function formSubmitHandler(evt) {
 
 formElement.addEventListener('submit', formSubmitHandler)
 
-formElementCards.addEventListener('submit', addCardListener)
+formElementCards.addEventListener('submit', addFormCardListener)
