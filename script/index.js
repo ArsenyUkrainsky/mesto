@@ -29,10 +29,12 @@ const initialCards = [
 
 const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
 const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
-const popupButtonCloseProfile = document.querySelector('#closeProfile') // Переменная для выбора кнопки закрытия окна
-const popupButtonCloseCards = document.querySelector('#closeCards') // Переменная для выбора кнопки закрытия окна
+const popupButtonCloseProfile = document.querySelector('#close-profile') // Переменная для выбора кнопки закрытия окна
+const popupButtonCloseCards = document.querySelector('#close-cards') // Переменная для выбора кнопки закрытия окна
+const popupButtonCloseImage = document.querySelector('#close-image')
 const popupUser = document.querySelector('#user') // Переменная для окна попап профиля
 const popupCards = document.querySelector('#cards') // Переменная для окна попап cards
+const popupImage = document.querySelector('#image')
 const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
 
 const nameInfo = document.querySelector('.profile__info-name') // Выберите элементы, куда должны быть вставлены значения полей
@@ -45,6 +47,12 @@ const jobInput = formElement.querySelector('.popup__field_input_characteristic')
 const container = document.querySelector('.elements__places')
 const templateElement = document.querySelector('.template')
 
+function openPopupImage(evt) {
+  togglePopupWindow(popupImage)
+  const openedImage = popupImage.querySelector('.popup__image')
+  const imageUrl = evt.target.getAttribute('src')
+  openedImage.setAttribute('src', imageUrl)
+}
 
 function deleteButtonHandler(evt){
   const elementCardRemove = evt.target.closest('.element')
@@ -79,6 +87,9 @@ function createCardDomNode(item) {
   title.textContent = item.name
   elementImage.setAttribute('alt', item.name)
   elementImage.setAttribute('src', item.link)
+  elementImage.addEventListener('click', openPopupImage)
+
+  
   // console.log(elementImage)
   
   return newItem
@@ -128,6 +139,10 @@ popupButtonCloseProfile.addEventListener('click', () => {
 popupButtonCloseCards.addEventListener('click', () => {
   togglePopupWindow(popupCards)
 })
+popupButtonCloseImage.addEventListener('click', () => {
+  togglePopupWindow(popupImage)
+})
+
 
 nameInput.value = nameInfo.textContent
 jobInput.value = jobCharacteristic.textContent
