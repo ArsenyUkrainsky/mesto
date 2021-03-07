@@ -49,18 +49,18 @@ const templateElement = document.querySelector('.template')
 
 function openPopupImage(evt) {
   togglePopupWindow(popupImage)
+  console.log(evt)
   const openedImage = popupImage.querySelector('.popup__image')
   const imageUrl = evt.target.getAttribute('src')
   openedImage.setAttribute('src', imageUrl)
 }
 
-function deleteButtonHandler(evt){
+function deleteButtonHandler(evt) {
   const elementCardRemove = evt.target.closest('.element')
   elementCardRemove.remove()
 }
 
-
-function likeButtonHandler(evt){
+function likeButtonHandler(evt) {
   const elementCardLike = evt.target.closest('.element')
   // console.log(elementCardLike)
   const elementLike = elementCardLike.querySelector('.element__like')
@@ -80,7 +80,6 @@ function addCardListeners(card) {
 
 // Создание из шаблона карточки
 function createCardDomNode(item) {
-  
   const newItem = templateElement.content.cloneNode(true)
   const title = newItem.querySelector('.element__title')
   const elementImage = newItem.querySelector('.element__image')
@@ -89,9 +88,8 @@ function createCardDomNode(item) {
   elementImage.setAttribute('src', item.link)
   elementImage.addEventListener('click', openPopupImage)
 
-  
   // console.log(elementImage)
-  
+
   return newItem
 }
 // Рендер всего списка карточек
@@ -102,7 +100,7 @@ function renderCards() {
     // console.log(item)
     return newCard
   })
-  container.append(...result) 
+  container.append(...result)
 }
 // Рендер одной новой карточки
 function addFormCardListener(evt) {
@@ -113,8 +111,7 @@ function addFormCardListener(evt) {
   const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
   const inputCardUrlValue = inputCardUrl.value
 
-  const newCard = createCardDomNode({name: inputCardNameValue, link: inputCardUrlValue})
-  
+  const newCard = createCardDomNode({ name: inputCardNameValue, link: inputCardUrlValue })
 
   addCardListeners(newCard)
 
@@ -143,12 +140,11 @@ popupButtonCloseImage.addEventListener('click', () => {
   togglePopupWindow(popupImage)
 })
 
-
 nameInput.value = nameInfo.textContent
 jobInput.value = jobCharacteristic.textContent
 
 function formSubmitHandler(evt) {
-  evt.preventDefault()  
+  evt.preventDefault()
   nameInfo.textContent = nameInput.value
   jobCharacteristic.textContent = jobInput.value
   togglePopupWindow(popupUser)
