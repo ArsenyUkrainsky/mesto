@@ -48,14 +48,16 @@ const container = document.querySelector('.elements__places')
 const templateElement = document.querySelector('.template')
 
 function openPopupImage(evt) {
-  togglePopupWindow(popupImage)
-  console.log(evt)
+  // console.log(evt)
   const openedImage = popupImage.querySelector('.popup__image')
   const imageUrl = evt.target.getAttribute('src')
   openedImage.setAttribute('src', imageUrl)
   const imageText = evt.target.closest('.element').querySelector('.element__title').textContent
-  /* const popupImageText = popupImage.querySelector('.element__title')
-  imageText == popupImageText */
+  // console.log(imageText)
+  const popupImageText = popupImage.querySelector('.popup__title')
+  // console.log(popupImageText)
+  popupImageText.textContent = imageText
+  togglePopupWindow(popupImage)
 }
 
 function deleteButtonHandler(evt) {

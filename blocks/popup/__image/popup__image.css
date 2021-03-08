@@ -2,4 +2,22 @@
   min-height: 540px;
   max-height: 75vh;
   max-width: 75vw;
+  object-fit: fill;
+}
+@media screen and (max-width: 860px) {
+  .popup__image {
+    min-height: 480px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .popup__image {
+    min-height: 320px;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  .popup__image {
+    min-height: 299px;
+    object-fit: cover;
+  }
 }
