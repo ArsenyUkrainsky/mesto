@@ -5,6 +5,6 @@
   box-sizing: border-box;
   position: relative;
   z-index: 1;
-  max-height: 75vh;
-  max-width: 75vw;
+  width: auto;
+  height: auto;
 }
