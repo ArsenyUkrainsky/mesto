@@ -3,22 +3,9 @@
   max-width: 75vw;
   /* максимальная высота — 75vh */
   max-height: 75vh;
-  min-width: 433px;
-  min-height: 540px;
   object-fit: fill;
 }
-@media screen and (max-width: 860px) {
-  .popup__image {
-    max-height: 480px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .popup__image {
-    max-height: 320px;
-  }
-}
-
-@media screen and (max-width: 465px) {
+@media screen and (max-width: 425px) {
   .popup__image {
     min-width: 240px;
     min-height: 299px;
