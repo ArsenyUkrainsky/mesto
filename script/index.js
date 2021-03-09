@@ -46,7 +46,7 @@ const nameInput = formElement.querySelector('.popup__field_input_name') // Во�
 const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 const container = document.querySelector('.elements__places')
 const templateElement = document.querySelector('.template')
-
+// Открытие попапа с картинкой
 function openPopupImage(evt) {
   // console.log(evt)
   const openedImage = popupImage.querySelector('.popup__image')
@@ -54,17 +54,17 @@ function openPopupImage(evt) {
   openedImage.setAttribute('src', imageUrl)
   const imageText = evt.target.closest('.element').querySelector('.element__title').textContent
   // console.log(imageText)
-  const popupImageText = popupImage.querySelector('.popup__title')
+  const popupImageText = popupImage.querySelector('.popup__title-img')
   // console.log(popupImageText)
   popupImageText.textContent = imageText
   togglePopupWindow(popupImage)
 }
-
+// Удаление карточки
 function deleteButtonHandler(evt) {
   const elementCardRemove = evt.target.closest('.element')
   elementCardRemove.remove()
 }
-
+// Лайк карточки
 function likeButtonHandler(evt) {
   const elementCardLike = evt.target.closest('.element')
   // console.log(elementCardLike)
@@ -72,7 +72,7 @@ function likeButtonHandler(evt) {
   // console.log(elementLike)
   elementLike.classList.toggle('element__like_active')
 }
-
+// обработчики событий: Удаление карточки  Лайк карточки
 function addCardListeners(card) {
   // console.log('события на месте=:-)')
   deleteButton = card.querySelector('.element__delete')
@@ -83,8 +83,9 @@ function addCardListeners(card) {
 
 // console.log(templateElement)
 
-// Создание из шаблона карточки
+// Создание из шаблона(template) карточки
 function createCardDomNode(item) {
+  // содержимое тега template целиком
   const newItem = templateElement.content.cloneNode(true)
   const title = newItem.querySelector('.element__title')
   const elementImage = newItem.querySelector('.element__image')
@@ -115,7 +116,7 @@ function addFormCardListener(evt) {
   const inputCardNameValue = inputCardName.value
   const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
   const inputCardUrlValue = inputCardUrl.value
-
+// получить из массива название и ссылку на картинку 
   const newCard = createCardDomNode({ name: inputCardNameValue, link: inputCardUrlValue })
 
   addCardListeners(newCard)
@@ -124,7 +125,8 @@ function addFormCardListener(evt) {
   togglePopupWindow(popupCards)
 }
 renderCards()
-
+// три попапа - для создания карточки (1), для редактирования данных пользователя (2) и для при открытия картинки в большом размере (3).
+// Каждый попап хранится в своей переменной функция togglePopupWindow, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
 const togglePopupWindow = (popup) => {
   popup.classList.toggle('popup_opened')
   scrollsw.classList.toggle('root_scroll')
@@ -144,10 +146,10 @@ popupButtonCloseCards.addEventListener('click', () => {
 popupButtonCloseImage.addEventListener('click', () => {
   togglePopupWindow(popupImage)
 })
-
+// занести данные в поля ввода
 nameInput.value = nameInfo.textContent
 jobInput.value = jobCharacteristic.textContent
-
+// обратное действие, занести введенные данные
 function formSubmitHandler(evt) {
   evt.preventDefault()
   nameInfo.textContent = nameInput.value
