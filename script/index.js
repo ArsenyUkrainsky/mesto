@@ -13,8 +13,8 @@ const nameInfo = document.querySelector('.profile__info-name') // Выберит
 const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
 const formElement = document.querySelector('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
 const formElementCards = document.querySelector('.popup__form_cards')
-const inputCardName = formElementCards.querySelector('.popup__field_input_place').value
-const inputCardUrl = formElementCards.querySelector('.popup__field_input_url').value
+const inputCardName = formElementCards.querySelector('.popup__field_input_place')
+const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
 const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 const container = document.querySelector('.elements__places')
@@ -64,7 +64,7 @@ function createCard(item) {
   // console.log(elementImage)
   return newItem
 }
-console.log(createCard)
+// console.log(createCard)
 // Рендер всего списка карточек
 function renderInitialCards() {
   const result = initialCards.map((item) => {
@@ -78,7 +78,7 @@ function renderInitialCards() {
 function submitAddCardForm(evt) {
   evt.preventDefault()
   // получить из массива название и ссылку на картинку
-  const newCard = createCard({ name: inputCardName, link: inputCardUrl })
+  const newCard = createCard({ name: inputCardName.value, link: inputCardUrl.value })
   container.prepend(newCard)
   togglePopupWindow(popupCards)
 }
@@ -96,6 +96,8 @@ popupButtonEdit.addEventListener('click', () => {
   togglePopupWindow(popupUser)
 })
 popupButtonAdd.addEventListener('click', () => {
+  inputCardName.value = ''
+  inputCardUrl.value = ''
   togglePopupWindow(popupCards)
 })
 popupButtonCloseProfile.addEventListener('click', () => {
