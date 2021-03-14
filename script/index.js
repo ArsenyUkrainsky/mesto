@@ -23,7 +23,9 @@ const templateElement = document.querySelector('.template')
 function openPopupImage(evt) {
   // console.log(evt)
   const imageUrl = evt.target.getAttribute('src')
+  const imageAltText = evt.target.getAttribute('alt')
   openedImage.setAttribute('src', imageUrl)
+  openedImage.setAttribute('alt', imageAltText)
   const imageText = evt.target.closest('.element').querySelector('.element__title').textContent
   // console.log(imageText)
   // console.log(popupImageText)
