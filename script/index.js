@@ -90,6 +90,7 @@ renderInitialCards()
 const togglePopupWindow = (popup) => {
   popup.classList.toggle('popup_opened')
   scrollsw.classList.toggle('root_scroll')
+  enableValidation(objectValidation)
 }
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода

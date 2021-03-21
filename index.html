@@ -8,7 +8,7 @@
     <meta name="keywords" content="место, интерактивная страница" />
     <meta name="author" content="Арсений Украинский" />
     <link rel="stylesheet" href="pages/index.css" />
-    <link rel="shortcut icon" type="image/svg" href="/images/logo.svg"/>
+    <link rel="shortcut icon" type="image/svg" href="/images/logo.svg" />
     <title>Mesto</title>
   </head>
   <body class="root">
@@ -46,7 +46,7 @@
         <!-- Заголовок первый в блоке, но при этом заголовок h1 может быть только один на странице. Поэтому этот заголовок должен быть h2. -->
         <h2 class="popup__title">Редактировать профиль</h2>
         <!-- поля формы в DOM -->
-        <form class="popup__form" name="popup-form">
+        <form class="popup__form" name="popup-form" novalidate>
           <fieldset class="popup__fieldset">
             <input
               type="text"
@@ -54,14 +54,20 @@
               required
               class="popup__field popup__field_input_name"
               placeholder="Имя"
+              minlength="2"
+              maxlength="40"
             />
+            <span class="popup__error" id="info-name-error"></span>
             <input
               type="text"
               name="characteristic"
               required
               class="popup__field popup__field_input_characteristic"
-              placeholder="Профессия"
+              placeholder="О себе"
+              minlength="2"
+              maxlength="200"
             />
+            <span class="popup__error" id="characteristic-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
@@ -74,22 +80,26 @@
         <!-- Заголовок первый в блоке, но при этом заголовок h1 может быть только один на странице. Поэтому этот заголовок должен быть h2. -->
         <h2 class="popup__title">Новое место</h2>
         <!-- поля формы в DOM -->
-        <form class="popup__form popup__form_cards" name="popup-form">
+        <form class="popup__form popup__form_cards" name="popup-form" novalidate>
           <fieldset class="popup__fieldset">
             <input
               type="text"
-              name="info-place"
+              name="card"
               required
               class="popup__field popup__field_input_place"
               placeholder="Название"
+              minlength="2"
+              maxlength="30"
             />
+            <span class="popup__error" id="card-error"></span>
             <input
-              type="text"
-              name="url"
+              type="url"
+              name="link"
               required
               class="popup__field popup__field_input_url"
               placeholder="Ссылка на картинку"
             />
+            <span class="popup__error" id="link-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Создать</button>
         </form>
@@ -116,7 +126,8 @@
     </template>
 
     <!-- Подключение скрипта -->
-    <script src="./script/initial-сards.js"></script> 
+    <script src="./script/initial-сards.js"></script>
     <script src="./script/index.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>
