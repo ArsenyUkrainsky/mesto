@@ -8,7 +8,7 @@ const popupCards = document.querySelector('#cards') // Переменная дл
 const popupImage = document.querySelector('#image')
 const openedImage = popupImage.querySelector('.popup__image')
 const popupImageText = popupImage.querySelector('.popup__title-img')
-const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
+// const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
 const nameInfo = document.querySelector('.profile__info-name') // Выберите элементы, куда должны быть вставлены значения полей
 const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
 const formElement = document.querySelector('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
@@ -38,13 +38,19 @@ function deleteButtonHandler(evt) {
   elementCardRemove.remove()
 }
 // Лайк карточки
-function likeButtonHandler(evt) {
+/* function likeButtonHandler(evt) {
   const elementCardLike = evt.target.closest('.element')
   // console.log(elementCardLike)
   const elementLike = elementCardLike.querySelector('.element__like')
   // console.log(elementLike)
   elementLike.classList.toggle('element__like_active')
-}
+} */
+// через делегирование
+container.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('element__like')) {
+    evt.target.classList.toggle('element__like_active')
+  }
+})
 // console.log(templateElement)
 // Создание из шаблона(template) карточки
 function createCard(item) {
@@ -53,14 +59,14 @@ function createCard(item) {
   const title = newItem.querySelector('.element__title')
   const elementImage = newItem.querySelector('.element__image')
   const deleteButton = newItem.querySelector('.element__delete')
-  const likeButton = newItem.querySelector('.element__like')
+  // const likeButton = newItem.querySelector('.element__like')
 
   title.textContent = item.name
   elementImage.setAttribute('alt', item.name)
   elementImage.setAttribute('src', item.link)
 
   deleteButton.addEventListener('click', deleteButtonHandler)
-  likeButton.addEventListener('click', likeButtonHandler)
+  // likeButton.addEventListener('click', likeButtonHandler)
   elementImage.addEventListener('click', openPopupImage)
 
   // console.log(elementImage)
@@ -89,7 +95,7 @@ renderInitialCards()
 // Каждый попап хранится в своей переменной функция togglePopupWindow, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
 const togglePopupWindow = (popup) => {
   popup.classList.toggle('popup_opened')
-  scrollsw.classList.toggle('root_scroll')
+  // scrollsw.classList.toggle('root_scroll')
   enableValidation(objectValidation)
 }
 popupButtonEdit.addEventListener('click', () => {
@@ -121,3 +127,20 @@ function submitEditProfileForm(evt) {
 }
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
+// Закрытие попапа кликом на оверлей
+document.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    evt.target.classList.remove('popup_opened')
+  }
+})
+// Закрытие попапа нажатием на Esc
+document.addEventListener('keydown', (evt) => {
+  if (
+    evt.key === 'Escape' &&
+    (popupUser.classList.contains('popup_opened') ||
+      popupCards.classList.contains('popup_opened') ||
+      popupImage.classList.contains('popup_opened'))
+  ) {
+    document.querySelector('.popup_opened').classList.remove('popup_opened')
+  }
+})

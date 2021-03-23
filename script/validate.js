@@ -72,9 +72,9 @@ const setInputListeners = (formElement, object) => {
     inputElement.addEventListener('input', () => {
       // проверить состояние поля валидно или не валидно поле
       // а так же переключить состояние кнопки
-      checkInput(formElement, inputElement, object)
-      toggleButton(inputList, buttonElement, object)
-      checkInputEmpty(inputList)
+      checkInput(formElement, inputElement, object) // проверка валидности конкретно этого инпута
+      toggleButton(inputList, buttonElement, object) // переключение состояния кнопки
+      checkInputEmpty(inputList) // проверка на то, есть ли невалидные поля в форме
     })
     checkInput(formElement, inputElement, object)
     toggleButton(inputList, buttonElement, object)
