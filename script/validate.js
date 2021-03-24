@@ -76,9 +76,10 @@ const setInputListeners = (formElement, object) => {
       toggleButton(inputList, buttonElement, object) // переключение состояния кнопки
       checkInputEmpty(inputList) // проверка на то, есть ли невалидные поля в форме
     })
-    checkInput(formElement, inputElement, object)
+    //     checkInput(formElement, inputElement, object)
     toggleButton(inputList, buttonElement, object)
     checkInputEmpty(inputList)
+    hideError(formElement, inputElement, object)
   })
 }
 // 1. включить валидацию из списка форм получить один элемент формы

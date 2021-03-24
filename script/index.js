@@ -134,7 +134,7 @@ document.addEventListener('click', (evt) => {
   }
 })
 // Закрытие попапа нажатием на Esc
-document.addEventListener('keydown', (evt) => {
+document.addEventListener('keyup', (evt) => {
   if (
     evt.key === 'Escape' &&
     (popupUser.classList.contains('popup_opened') ||
