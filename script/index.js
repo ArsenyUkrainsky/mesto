@@ -90,12 +90,12 @@ renderInitialCards()
 // Каждый попап хранится в своей переменной функция openPopup, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
-  document.addEventListener('keydown', closeByEscape)
+  document.addEventListener('keyup', closeByEscape)
 }
 const closePopup = (popup) => {
   clearErrorMessage(popup)
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', closeByEscape)
+  document.removeEventListener('keyup', closeByEscape)
 }
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода
