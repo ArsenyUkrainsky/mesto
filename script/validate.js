@@ -16,7 +16,6 @@ const checkInputEmpty = (inputList) => {
   }
   return true
 }
-
 // 7. хотя бы один из инпутов невалидный
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => !inputElement.validity.valid)
@@ -60,7 +59,6 @@ const checkInput = (formElement, inputElement, object) => {
     showError(formElement, inputElement, object)
   }
 }
-
 // 2. обработчики на все поля форм
 const setInputListeners = (formElement, object) => {
   const inputList = Array.from(formElement.querySelectorAll(object.inputSelector))
@@ -77,9 +75,10 @@ const setInputListeners = (formElement, object) => {
       checkInputEmpty(inputList) // проверка на то, есть ли невалидные поля в форме
     })
     //     checkInput(formElement, inputElement, object)
-    toggleButton(inputList, buttonElement, object)
+    /* toggleButton(inputList, buttonElement, object)
     checkInputEmpty(inputList)
-    hideError(formElement, inputElement, object)
+    hideError(formElement, inputElement, object) */
+    
   })
 }
 // 1. включить валидацию из списка форм получить один элемент формы
@@ -97,5 +96,4 @@ const enableValidation = (object) => {
     setInputListeners(formElement, object)
   })
 }
-
 enableValidation(objectValidation)

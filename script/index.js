@@ -1,8 +1,5 @@
 const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
 const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
-const popupButtonCloseProfile = document.querySelector('#close-profile') // Переменная для выбора кнопки закрытия окна
-const popupButtonCloseCards = document.querySelector('#close-cards') // Переменная для выбора кнопки закрытия окна
-const popupButtonCloseImage = document.querySelector('#close-image')
 const popupUser = document.querySelector('#user') // Переменная для окна попап профиля
 const popupCards = document.querySelector('#cards') // Переменная для окна попап cards
 const popupImage = document.querySelector('#image')
@@ -19,19 +16,15 @@ const nameInput = formElement.querySelector('.popup__field_input_name') // Во�
 const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 const container = document.querySelector('.elements__places')
 const templateElement = document.querySelector('.template')
+const popups = document.querySelectorAll('.popup')
 // Открытие попапа с картинкой
-function openPopupImage(evt) {
-  // console.log(evt)
-  const imageUrl = evt.target.getAttribute('src')
-  const imageAltText = evt.target.getAttribute('alt')
-  openedImage.setAttribute('src', imageUrl)
-  openedImage.setAttribute('alt', imageAltText)
-  const imageText = evt.target.closest('.element').querySelector('.element__title').textContent
-  // console.log(imageText)
-  // console.log(popupImageText)
-  popupImageText.textContent = imageText
-  togglePopupWindow(popupImage)
+function openPopupImage(item) {
+  openedImage.setAttribute('src', item.link)
+  openedImage.setAttribute('alt', item.name)
+  popupImageText.textContent = item.name
+  openPopup(popupImage)
 }
+
 // Удаление карточки
 function deleteButtonHandler(evt) {
   const elementCardRemove = evt.target.closest('.element')
@@ -67,7 +60,9 @@ function createCard(item) {
 
   deleteButton.addEventListener('click', deleteButtonHandler)
   // likeButton.addEventListener('click', likeButtonHandler)
-  elementImage.addEventListener('click', openPopupImage)
+  elementImage.addEventListener('click', () => {
+    openPopupImage(item)
+  })
 
   // console.log(elementImage)
   return newItem
@@ -88,59 +83,72 @@ function submitAddCardForm(evt) {
   // получить из массива название и ссылку на картинку
   const newCard = createCard({ name: inputCardName.value, link: inputCardUrl.value })
   container.prepend(newCard)
-  togglePopupWindow(popupCards)
+  closePopup(popupCards)
 }
 renderInitialCards()
 // три попапа - для создания карточки (1), для редактирования данных пользователя (2) и для при открытия картинки в большом размере (3).
-// Каждый попап хранится в своей переменной функция togglePopupWindow, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
-const togglePopupWindow = (popup) => {
-  popup.classList.toggle('popup_opened')
-  // scrollsw.classList.toggle('root_scroll')
-  enableValidation(objectValidation)
+// Каждый попап хранится в своей переменной функция openPopup, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeByEscape)
+}
+const closePopup = (popup) => {
+  clearErrorMessage(popup)
+  popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closeByEscape)
 }
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода
   nameInput.value = nameInfo.textContent
   jobInput.value = jobCharacteristic.textContent
-  togglePopupWindow(popupUser)
+  openPopup(popupUser)
+  const list = Array.from(popupUser.querySelectorAll('.popup__field'))
+  const button = popupUser.querySelector('.popup__submit')
+  toggleButton(list, button, objectValidation)
 })
 popupButtonAdd.addEventListener('click', () => {
   inputCardName.value = ''
   inputCardUrl.value = ''
-  togglePopupWindow(popupCards)
+  openPopup(popupCards)
+  const list = Array.from(popupCards.querySelectorAll('.popup__field'))
+  const button = popupCards.querySelector('.popup__submit')
+  toggleButton(list, button, objectValidation)
 })
-popupButtonCloseProfile.addEventListener('click', () => {
-  togglePopupWindow(popupUser)
-})
-popupButtonCloseCards.addEventListener('click', () => {
-  togglePopupWindow(popupCards)
-})
-popupButtonCloseImage.addEventListener('click', () => {
-  togglePopupWindow(popupImage)
-})
+
 // обратное действие, занести введенные данные
 function submitEditProfileForm(evt) {
   evt.preventDefault()
   nameInfo.textContent = nameInput.value
   jobCharacteristic.textContent = jobInput.value
-  togglePopupWindow(popupUser)
+  closePopup(popupUser)
 }
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
 // Закрытие попапа кликом на оверлей
-document.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup_opened')) {
-    evt.target.classList.remove('popup_opened')
-  }
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup)
+    }
+  })
 })
+
 // Закрытие попапа нажатием на Esc
-document.addEventListener('keyup', (evt) => {
-  if (
-    evt.key === 'Escape' &&
-    (popupUser.classList.contains('popup_opened') ||
-      popupCards.classList.contains('popup_opened') ||
-      popupImage.classList.contains('popup_opened'))
-  ) {
-    document.querySelector('.popup_opened').classList.remove('popup_opened')
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
   }
-})
+}
+const clearErrorMessage = (popup) => {
+  const errorText = popup
+    .querySelectorAll('.popup__error')
+    .forEach((element) => (element.textContent = ''))
+  const errorArea = popup
+    .querySelectorAll('.popup__field')
+    .forEach((element) => element.classList.remove('popup__field_type_error'))
+}
