@@ -93,7 +93,6 @@ const openPopup = (popup) => {
   document.addEventListener('keyup', closeByEscape)
 }
 const closePopup = (popup) => {
-  clearErrorMessage(popup)
   popup.classList.remove('popup_opened')
   document.removeEventListener('keyup', closeByEscape)
 }
@@ -102,6 +101,7 @@ popupButtonEdit.addEventListener('click', () => {
   nameInput.value = nameInfo.textContent
   jobInput.value = jobCharacteristic.textContent
   openPopup(popupUser)
+  clearErrorMessage(popupUser)
   const list = Array.from(popupUser.querySelectorAll('.popup__field'))
   const button = popupUser.querySelector('.popup__submit')
   toggleButton(list, button, objectValidation)
@@ -110,6 +110,7 @@ popupButtonAdd.addEventListener('click', () => {
   inputCardName.value = ''
   inputCardUrl.value = ''
   openPopup(popupCards)
+  clearErrorMessage(popupCards)
   const list = Array.from(popupCards.querySelectorAll('.popup__field'))
   const button = popupCards.querySelector('.popup__submit')
   toggleButton(list, button, objectValidation)
