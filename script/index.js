@@ -1,3 +1,5 @@
+import { Card } from './Card.js'
+
 const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
 const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
 const popupUser = document.querySelector('#user') // Переменная для окна попап профиля
@@ -15,17 +17,17 @@ const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
 const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
 const container = document.querySelector('.elements__places')
-const templateElement = document.querySelector('.template')
+// const templateElement = document.querySelector('.template')
 const popups = document.querySelectorAll('.popup')
 // Открытие попапа с картинкой
-function openPopupImage(item) {
-  openedImage.setAttribute('src', item.link)
-  openedImage.setAttribute('alt', item.name)
-  popupImageText.textContent = item.name
+export function openPopupImage(evt) {
+  openedImage.setAttribute('src', evt.target.getAttribute('src'))
+  openedImage.setAttribute('alt', evt.target.getAttribute('alt'))
+  popupImageText.textContent = evt.target.getAttribute('alt')
   openPopup(popupImage)
 }
-
-// Удаление карточки
+/*
+ // Удаление карточки
 function deleteButtonHandler(evt) {
   const elementCardRemove = evt.target.closest('.element')
   elementCardRemove.remove()
@@ -37,7 +39,7 @@ function deleteButtonHandler(evt) {
   const elementLike = elementCardLike.querySelector('.element__like')
   // console.log(elementLike)
   elementLike.classList.toggle('element__like_active')
-} */
+} 
 // через делегирование
 container.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('element__like')) {
@@ -76,18 +78,11 @@ function renderInitialCards() {
     return newCard
   })
   container.append(...result)
-}
-// Рендер одной новой карточки
-function submitAddCardForm(evt) {
-  evt.preventDefault()
-  // получить из массива название и ссылку на картинку
-  const newCard = createCard({ name: inputCardName.value, link: inputCardUrl.value })
-  container.prepend(newCard)
-  closePopup(popupCards)
-}
-renderInitialCards()
+}*/
+// renderInitialCards()
 // три попапа - для создания карточки (1), для редактирования данных пользователя (2) и для при открытия картинки в большом размере (3).
 // Каждый попап хранится в своей переменной функция openPopup, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keyup', closeByEscape)
@@ -95,6 +90,14 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keyup', closeByEscape)
+}
+const clearErrorMessage = (popup) => {
+  const errorText = popup
+    .querySelectorAll('.popup__error')
+    .forEach((element) => (element.textContent = ''))
+  const errorArea = popup
+    .querySelectorAll('.popup__field')
+    .forEach((element) => element.classList.remove('popup__field_type_error'))
 }
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода
@@ -125,6 +128,7 @@ function submitEditProfileForm(evt) {
 }
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
+
 // Закрытие попапа кликом на оверлей
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
@@ -145,11 +149,23 @@ function closeByEscape(evt) {
     closePopup(openedPopup)
   }
 }
-const clearErrorMessage = (popup) => {
-  const errorText = popup
-    .querySelectorAll('.popup__error')
-    .forEach((element) => (element.textContent = ''))
-  const errorArea = popup
-    .querySelectorAll('.popup__field')
-    .forEach((element) => element.classList.remove('popup__field_type_error'))
+
+// Создадим экземпляр карточки
+initialCards.forEach((item) => {
+  const card = new Card(item, '.template')
+  const cardElement = card.generateCard()
+  container.append(cardElement)
+})
+// Рендер одной новой карточки
+function submitAddCardForm(evt) {
+  evt.preventDefault()
+  const dataValue = {
+    name: inputCardName.value,
+    link: inputCardUrl.value,
+  }
+  const card = new Card(dataValue, '.template')
+  const cardElement = card.generateCard()
+  container.prepend(cardElement)
+  closePopup(popupCards)
 }
+
