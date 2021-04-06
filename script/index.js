@@ -1,4 +1,7 @@
+import { initialCards } from './initial-сards.js'
+import { objectValidation } from './objectValidation.js'
 import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
 
 const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
 const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
@@ -10,8 +13,10 @@ const popupImageText = popupImage.querySelector('.popup__title-img')
 // const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
 const nameInfo = document.querySelector('.profile__info-name') // Выберите элементы, куда должны быть вставлены значения полей
 const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
-const formElement = document.querySelector('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
+const formElement = document.querySelector('.popup__form')
+const formElements = document.querySelectorAll('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
 const formElementCards = document.querySelector('.popup__form_cards')
+const formElementEdit = document.querySelector('.popup__form_edit')
 const inputCardName = formElementCards.querySelector('.popup__field_input_place')
 const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
@@ -107,7 +112,8 @@ popupButtonEdit.addEventListener('click', () => {
   clearErrorMessage(popupUser)
   const list = Array.from(popupUser.querySelectorAll('.popup__field'))
   const button = popupUser.querySelector('.popup__submit')
-  toggleButton(list, button, objectValidation)
+  const validation = new FormValidator(objectValidation, formElementEdit).enableValidation()
+  // toggleButton(list, button, objectValidation)
 })
 popupButtonAdd.addEventListener('click', () => {
   inputCardName.value = ''
@@ -116,7 +122,8 @@ popupButtonAdd.addEventListener('click', () => {
   clearErrorMessage(popupCards)
   const list = Array.from(popupCards.querySelectorAll('.popup__field'))
   const button = popupCards.querySelector('.popup__submit')
-  toggleButton(list, button, objectValidation)
+  const validation = new FormValidator(objectValidation, formElementCards).enableValidation()
+  // toggleButton(list, button, objectValidation)
 })
 
 // обратное действие, занести введенные данные
@@ -124,6 +131,7 @@ function submitEditProfileForm(evt) {
   evt.preventDefault()
   nameInfo.textContent = nameInput.value
   jobCharacteristic.textContent = jobInput.value
+  formElement.reset()
   closePopup(popupUser)
 }
 formElement.addEventListener('submit', submitEditProfileForm)
@@ -166,6 +174,11 @@ function submitAddCardForm(evt) {
   const card = new Card(dataValue, '.template')
   const cardElement = card.generateCard()
   container.prepend(cardElement)
+  formElementCards.reset()
   closePopup(popupCards)
+
 }
+formElements.forEach((element) => {
+  const validation = new FormValidator(objectValidation, element).enableValidation()
+})
 

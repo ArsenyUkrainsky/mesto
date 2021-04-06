@@ -1,4 +1,4 @@
-const objectValidation = {
+export const objectValidation = {
   formSelector: '.popup__form', // селектор формы
   inputSelector: '.popup__field', // селектор инпутов внутри этой формы
   submitButtonSelector: '.popup__submit', // селектор кнопки сабмита этой формы
@@ -6,6 +6,7 @@ const objectValidation = {
   inputErrorMessage: 'popup__error_active', // селектор контейнеров для ошибок этой формы
   inputError: 'popup__field_type_error', // класс модификатор для инпутов при возникновении ошибки
 }
+/* 
 // 8. функция проверит по списку инпутов все ли они пустые или нет
 const checkInputEmpty = (inputList) => {
   //   return !inputList.some(inputElement => inputElement.value.length > 0)
@@ -77,7 +78,7 @@ const setInputListeners = (formElement, object) => {
     //     checkInput(formElement, inputElement, object)
     /* toggleButton(inputList, buttonElement, object)
     checkInputEmpty(inputList)
-    hideError(formElement, inputElement, object) */
+    hideError(formElement, inputElement, object) 
     
   })
 }
@@ -96,4 +97,4 @@ const enableValidation = (object) => {
     setInputListeners(formElement, object)
   })
 }
-enableValidation(objectValidation)
+enableValidation(objectValidation) */

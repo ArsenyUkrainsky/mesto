@@ -13,9 +13,9 @@ export class Card {
       .cloneNode(true)
     return cardElement
   }
-  
+
   _deleteButtonHandler = () => this._element.remove()
-  
+
   _likeButtonHandler = () =>
     this._element.querySelector('.element__like').classList.toggle('element__like_active')
 
