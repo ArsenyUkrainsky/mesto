@@ -3,90 +3,23 @@ import { objectValidation } from './objectValidation.js'
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 
-const popupButtonEdit = document.querySelector('.profile__button-edit') // Переменная для выбора кнопки редактирования
-const popupButtonAdd = document.querySelector('.profile__button-add') // Переменная для выбора кнопки добавления
-const popupUser = document.querySelector('#user') // Переменная для окна попап профиля
-const popupCards = document.querySelector('#cards') // Переменная для окна попап cards
-const popupImage = document.querySelector('#image')
-const openedImage = popupImage.querySelector('.popup__image')
-const popupImageText = popupImage.querySelector('.popup__title-img')
-// const scrollsw = document.querySelector('.root') // Переменная для переключения скролла страницы во время просмотра окна
-const nameInfo = document.querySelector('.profile__info-name') // Выберите элементы, куда должны быть вставлены значения полей
-const jobCharacteristic = document.querySelector('.profile__characteristic') // Выберите элементы, куда должны быть вставлены значения полей
+const popupButtonEdit = document.querySelector('.profile__button-edit')
+const popupButtonAdd = document.querySelector('.profile__button-add')
+const popupUser = document.querySelector('#user')
+const popupCards = document.querySelector('#cards')
+
+const nameInfo = document.querySelector('.profile__info-name')
+const jobCharacteristic = document.querySelector('.profile__characteristic')
 const formElement = document.querySelector('.popup__form')
-const formElements = document.querySelectorAll('.popup__form') // Воспользуйтесь методом querySelector() Элемент формы в DOM
+
 const formElementCards = document.querySelector('.popup__form_cards')
 const formElementEdit = document.querySelector('.popup__form_edit')
 const inputCardName = formElementCards.querySelector('.popup__field_input_place')
 const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
-const nameInput = formElement.querySelector('.popup__field_input_name') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода имени
-const jobInput = formElement.querySelector('.popup__field_input_characteristic') // Воспользуйтесь инструментом .querySelector() Из формы выбираем поле ввода профессии
+const nameInput = formElement.querySelector('.popup__field_input_name')
+const jobInput = formElement.querySelector('.popup__field_input_characteristic')
 const container = document.querySelector('.elements__places')
-// const templateElement = document.querySelector('.template')
 const popups = document.querySelectorAll('.popup')
-// Открытие попапа с картинкой
-export function openPopupImage(evt) {
-  openedImage.setAttribute('src', evt.target.getAttribute('src'))
-  openedImage.setAttribute('alt', evt.target.getAttribute('alt'))
-  popupImageText.textContent = evt.target.getAttribute('alt')
-  openPopup(popupImage)
-}
-/*
- // Удаление карточки
-function deleteButtonHandler(evt) {
-  const elementCardRemove = evt.target.closest('.element')
-  elementCardRemove.remove()
-}
-// Лайк карточки
-/* function likeButtonHandler(evt) {
-  const elementCardLike = evt.target.closest('.element')
-  // console.log(elementCardLike)
-  const elementLike = elementCardLike.querySelector('.element__like')
-  // console.log(elementLike)
-  elementLike.classList.toggle('element__like_active')
-} 
-// через делегирование
-container.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('element__like')) {
-    evt.target.classList.toggle('element__like_active')
-  }
-})
-// console.log(templateElement)
-// Создание из шаблона(template) карточки
-function createCard(item) {
-  // содержимое тега template целиком
-  const newItem = templateElement.content.cloneNode(true)
-  const title = newItem.querySelector('.element__title')
-  const elementImage = newItem.querySelector('.element__image')
-  const deleteButton = newItem.querySelector('.element__delete')
-  // const likeButton = newItem.querySelector('.element__like')
-
-  title.textContent = item.name
-  elementImage.setAttribute('alt', item.name)
-  elementImage.setAttribute('src', item.link)
-
-  deleteButton.addEventListener('click', deleteButtonHandler)
-  // likeButton.addEventListener('click', likeButtonHandler)
-  elementImage.addEventListener('click', () => {
-    openPopupImage(item)
-  })
-
-  // console.log(elementImage)
-  return newItem
-}
-// console.log(createCard)
-// Рендер всего списка карточек
-function renderInitialCards() {
-  const result = initialCards.map((item) => {
-    const newCard = createCard(item)
-    // console.log(item)
-    return newCard
-  })
-  container.append(...result)
-}*/
-// renderInitialCards()
-// три попапа - для создания карточки (1), для редактирования данных пользователя (2) и для при открытия картинки в большом размере (3).
-// Каждый попап хранится в своей переменной функция openPopup, которая будет принимать в качестве аргумента указание, какой именно попап надо открыть или закрыть.
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
@@ -96,34 +29,19 @@ const closePopup = (popup) => {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keyup', closeByEscape)
 }
-const clearErrorMessage = (popup) => {
-  const errorText = popup
-    .querySelectorAll('.popup__error')
-    .forEach((element) => (element.textContent = ''))
-  const errorArea = popup
-    .querySelectorAll('.popup__field')
-    .forEach((element) => element.classList.remove('popup__field_type_error'))
-}
+
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода
   nameInput.value = nameInfo.textContent
   jobInput.value = jobCharacteristic.textContent
   openPopup(popupUser)
-  clearErrorMessage(popupUser)
-  const list = Array.from(popupUser.querySelectorAll('.popup__field'))
-  const button = popupUser.querySelector('.popup__submit')
-  const validation = new FormValidator(objectValidation, formElementEdit).enableValidation()
-  // toggleButton(list, button, objectValidation)
+  editProfileFormValidator.clearErrorMessage()
 })
 popupButtonAdd.addEventListener('click', () => {
   inputCardName.value = ''
   inputCardUrl.value = ''
   openPopup(popupCards)
-  clearErrorMessage(popupCards)
-  const list = Array.from(popupCards.querySelectorAll('.popup__field'))
-  const button = popupCards.querySelector('.popup__submit')
-  const validation = new FormValidator(objectValidation, formElementCards).enableValidation()
-  // toggleButton(list, button, objectValidation)
+  addCardFormValidator.clearErrorMessage()
 })
 
 // обратное действие, занести введенные данные
@@ -157,12 +75,14 @@ function closeByEscape(evt) {
     closePopup(openedPopup)
   }
 }
+function createCard(item, templ) {
+  const card = new Card(item, templ)
+  return card
+}
 
 // Создадим экземпляр карточки
 initialCards.forEach((item) => {
-  const card = new Card(item, '.template')
-  const cardElement = card.generateCard()
-  container.append(cardElement)
+  container.append(createCard(item, '.template').generateCard())
 })
 // Рендер одной новой карточки
 function submitAddCardForm(evt) {
@@ -171,14 +91,13 @@ function submitAddCardForm(evt) {
     name: inputCardName.value,
     link: inputCardUrl.value,
   }
-  const card = new Card(dataValue, '.template')
-  const cardElement = card.generateCard()
-  container.prepend(cardElement)
+  container.prepend(createCard(dataValue, '.template').generateCard())
   formElementCards.reset()
   closePopup(popupCards)
-
 }
-formElements.forEach((element) => {
-  const validation = new FormValidator(objectValidation, element).enableValidation()
-})
 
+const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
+const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
+
+addCardFormValidator.enableValidation()
+editProfileFormValidator.enableValidation()

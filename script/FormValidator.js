@@ -7,6 +7,7 @@ export class FormValidator {
     this._inactiveButtonClass = objectValidation.inactiveButtonClass
     this._inputErrorMessage = objectValidation.inputErrorMessage
     this._inputError = objectValidation.inputError
+    this._textError = objectValidation.textError
     this._validationForm = validationForm //элемент той формы, которая валидируется
   }
 
@@ -68,6 +69,15 @@ export class FormValidator {
   enableValidation() {
     this._validationForm.addEventListener('submit', (evt) => evt.preventDefault())
     this._setInputListeners()
-    this._toggleButton()
+  }
+
+  clearErrorMessage() {
+    const errorText = this._validationForm
+      .querySelectorAll(this._textError)
+      .forEach((err) => (err.textContent = ''))
+    const errorArea = this._validationForm
+      .querySelectorAll(this._inputSelector)
+      .forEach((err) => err.classList.remove(this._inputError))
+      this._toggleButton()
   }
 }
