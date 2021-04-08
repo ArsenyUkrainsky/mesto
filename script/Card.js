@@ -1,4 +1,4 @@
-import { openPopupImage } from '../utils/utils.js'
+import { openPopupImage } from './utils/utils.js'
 
 //класс, который хранит разметку карточки и наполняет его уникальным содержанием
 export class Card {

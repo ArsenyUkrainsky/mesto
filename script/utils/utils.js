@@ -1,3 +1,5 @@
+import { openPopup } from '../index.js'
+
 const popupImage = document.querySelector('#image')
 const openedImage = popupImage.querySelector('.popup__image')
 const popupImageText = popupImage.querySelector('.popup__title-img')

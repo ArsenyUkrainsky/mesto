@@ -21,7 +21,7 @@ const jobInput = formElement.querySelector('.popup__field_input_characteristic')
 const container = document.querySelector('.elements__places')
 const popups = document.querySelectorAll('.popup')
 
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keyup', closeByEscape)
 }
@@ -29,7 +29,24 @@ const closePopup = (popup) => {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keyup', closeByEscape)
 }
-
+// Закрытие попапа нажатием на Esc
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
+}
+// Закрытие попапа кликом на оверлей
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup)
+    }
+  })
+})
 popupButtonEdit.addEventListener('click', () => {
   // занести данные в поля ввода
   nameInput.value = nameInfo.textContent
@@ -55,26 +72,6 @@ function submitEditProfileForm(evt) {
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
 
-// Закрытие попапа кликом на оверлей
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup)
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup)
-    }
-  })
-})
-
-// Закрытие попапа нажатием на Esc
-
-function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup)
-  }
-}
 function createCard(item, templ) {
   const card = new Card(item, templ)
   return card
