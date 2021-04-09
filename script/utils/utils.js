@@ -1,12 +1,15 @@
-import { openPopup } from '../index.js'
-
-const popupImage = document.querySelector('#image')
-const openedImage = popupImage.querySelector('.popup__image')
-const popupImageText = popupImage.querySelector('.popup__title-img')
-// Открытие попапа с картинкой
-export function openPopupImage(evt) {
-  openedImage.setAttribute('src', evt.target.getAttribute('src'))
-  openedImage.setAttribute('alt', evt.target.getAttribute('alt'))
-  popupImageText.textContent = evt.target.getAttribute('alt')
-  openPopup(popupImage)
+export const openPopup = (popup) => {
+  popup.classList.add('popup_opened')
+  document.addEventListener('keyup', closeByEscape)
+}
+export const closePopup = (popup) => {
+  popup.classList.remove('popup_opened')
+  document.removeEventListener('keyup', closeByEscape)
+}
+// Закрытие попапа нажатием на Esc
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
 }

@@ -1,4 +1,3 @@
-import { objectValidation } from './objectValidation.js'
 export class FormValidator {
   constructor(objectValidation, validationForm) {
     this._formSelector = objectValidation.formSelector
@@ -78,6 +77,6 @@ export class FormValidator {
     const errorArea = this._validationForm
       .querySelectorAll(this._inputSelector)
       .forEach((err) => err.classList.remove(this._inputError))
-      this._toggleButton()
+    this._toggleButton()
   }
 }
