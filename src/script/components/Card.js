@@ -1,4 +1,4 @@
-import { openPopup } from './utils/utils.js'
+import { openPopup } from '../utils/utils.js'
 
 const popupImage = document.querySelector('#image')
 const openedImage = popupImage.querySelector('.popup__image')

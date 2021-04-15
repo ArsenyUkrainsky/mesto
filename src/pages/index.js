@@ -1,9 +1,10 @@
-import { initialCards } from './initial-сards.js'
-import { objectValidation } from './objectValidation.js'
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import { openPopup } from './utils/utils.js'
-import { closePopup } from './utils/utils.js'
+import { initialCards } from '../script/utils/constants.js'
+import { objectValidation } from '../script/utils/constants.js'
+import { Card } from '../script/components/Card.js'
+import { FormValidator } from '../script/components/FormValidator.js'
+import { openPopup } from '../script/utils/utils.js'
+import { closePopup } from '../script/utils/utils.js'
+import { Section } from '../script/components/Section.js'
 
 const popupButtonEdit = document.querySelector('.profile__button-edit')
 const popupButtonAdd = document.querySelector('.profile__button-add')
@@ -20,7 +21,7 @@ const inputCardName = formElementCards.querySelector('.popup__field_input_place'
 const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const nameInput = formElement.querySelector('.popup__field_input_name')
 const jobInput = formElement.querySelector('.popup__field_input_characteristic')
-const container = document.querySelector('.elements__places')
+const containerSelector = document.querySelector('.elements__places')
 const popups = document.querySelectorAll('.popup')
 // Закрытие попапа кликом на оверлей
 popups.forEach((popup) => {
@@ -59,23 +60,39 @@ function submitEditProfileForm(evt) {
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
 
-function createCard(item, templ) {
-  const card = new Card(item, templ)
-  return card
-}
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (cardItem) => {
+      const card = new Card(cardItem, '.template').generateCard()
+      cardsList.addItem(card)
+    },
+  },
+  containerSelector
+)
+cardsList.renderItems()
 
-// Создадим экземпляр карточки
-initialCards.forEach((item) => {
-  container.append(createCard(item, '.template').generateCard())
-})
 // Рендер одной новой карточки
 function submitAddCardForm(evt) {
   evt.preventDefault()
-  const dataValue = {
-    name: inputCardName.value,
-    link: inputCardUrl.value,
-  }
-  container.prepend(createCard(dataValue, '.template').generateCard())
+  const dataValue = [
+    {
+      name: inputCardName.value,
+      link: inputCardUrl.value,
+    },
+  ]
+
+  const cardNew = new Section(
+    {
+      items: dataValue,
+      renderer: (dataValue) => {
+        const card = new Card(dataValue, '.template').generateCard()
+        cardNew.addItemNew(card)
+      },
+    },
+    containerSelector
+  )
+  cardNew.renderItems()
   formElementCards.reset()
   closePopup(popupCards)
 }
