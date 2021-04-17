@@ -1,16 +1,17 @@
-import { initialCards } from '../script/utils/constants.js'
-import { objectValidation } from '../script/utils/constants.js'
+import { initialCards, objectValidation } from '../script/utils/constants.js'
+
 import { Card } from '../script/components/Card.js'
 import { FormValidator } from '../script/components/FormValidator.js'
-import { openPopup } from '../script/utils/utils.js'
-import { closePopup } from '../script/utils/utils.js'
+
 import { Section } from '../script/components/Section.js'
+import { Popup } from '../script/components/Popup.js'
+import { PopupWithImage } from '../script/components/PopupWithImage.js'
 
 const popupButtonEdit = document.querySelector('.profile__button-edit')
 const popupButtonAdd = document.querySelector('.profile__button-add')
 const popupUser = document.querySelector('#user')
 const popupCards = document.querySelector('#cards')
-
+const popupImage = document.querySelector('#image')
 const nameInfo = document.querySelector('.profile__info-name')
 const jobCharacteristic = document.querySelector('.profile__characteristic')
 const formElement = document.querySelector('.popup__form')
@@ -22,30 +23,23 @@ const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const nameInput = formElement.querySelector('.popup__field_input_name')
 const jobInput = formElement.querySelector('.popup__field_input_characteristic')
 const containerSelector = document.querySelector('.elements__places')
-const popups = document.querySelectorAll('.popup')
-// Закрытие попапа кликом на оверлей
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup)
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup)
-    }
-  })
-})
+
+function handleCardClick(link, name) {
+  const popupWithImage = new PopupWithImage(popupImage)
+  popupWithImage.open(link, name)
+}
 
 popupButtonEdit.addEventListener('click', () => {
-  // занести данные в поля ввода
   nameInput.value = nameInfo.textContent
   jobInput.value = jobCharacteristic.textContent
-  openPopup(popupUser)
+
+  new Popup(popupUser).open()
   editProfileFormValidator.clearErrorMessage()
 })
 popupButtonAdd.addEventListener('click', () => {
   inputCardName.value = ''
   inputCardUrl.value = ''
-  openPopup(popupCards)
+  new Popup(popupCards).open()
   addCardFormValidator.clearErrorMessage()
 })
 
@@ -55,7 +49,7 @@ function submitEditProfileForm(evt) {
   nameInfo.textContent = nameInput.value
   jobCharacteristic.textContent = jobInput.value
   formElement.reset()
-  closePopup(popupUser)
+  new Popup(popupUser).close()
 }
 formElement.addEventListener('submit', submitEditProfileForm)
 formElementCards.addEventListener('submit', submitAddCardForm)
@@ -64,7 +58,7 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, '.template').generateCard()
+      const card = new Card(cardItem, '.template', handleCardClick).generateCard()
       cardsList.addItem(card)
     },
   },
@@ -86,7 +80,7 @@ function submitAddCardForm(evt) {
     {
       items: dataValue,
       renderer: (dataValue) => {
-        const card = new Card(dataValue, '.template').generateCard()
+        const card = new Card(dataValue, '.template', handleCardClick).generateCard()
         cardNew.addItemNew(card)
       },
     },
@@ -94,7 +88,8 @@ function submitAddCardForm(evt) {
   )
   cardNew.renderItems()
   formElementCards.reset()
-  closePopup(popupCards)
+
+  new Popup(popupCards).close()
 }
 
 const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
