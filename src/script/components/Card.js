@@ -26,9 +26,7 @@ export class Card {
     this._likeElement.addEventListener('click', () => {
       this._likeButtonHandler()
     })
-    this._imageElement.addEventListener('click', () =>
-      this.handleCardClick(this._link, this._name)
-    )
+    this._imageElement.addEventListener('click', () => this.handleCardClick(this._link, this._name))
   }
 
   generateCard() {

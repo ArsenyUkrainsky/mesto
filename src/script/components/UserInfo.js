@@ -10,5 +10,8 @@ export class UserInfo {
     }
     return userProfile
   }
-  setUserInfo() {}
+  setUserInfo(inputData) {
+    this._userName.textContent = inputData.name
+    this._userJob.textContent = inputData.characteristic
+  }
 }
