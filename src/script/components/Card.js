@@ -10,7 +10,7 @@ export class Card {
       .cloneNode(true)
     this._imageElement = this._element.querySelector('.element__image')
     this._likeElement = this._element.querySelector('.element__like')
-    this._handleCardClick = handleCardClick
+    this.handleCardClick = handleCardClick
   }
 
   _deleteButtonHandler = () => this._element.remove()
@@ -27,7 +27,7 @@ export class Card {
       this._likeButtonHandler()
     })
     this._imageElement.addEventListener('click', () =>
-      this._handleCardClick(this._link, this._name)
+      this.handleCardClick(this._link, this._name)
     )
   }
 

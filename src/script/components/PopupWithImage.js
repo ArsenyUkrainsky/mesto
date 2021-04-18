@@ -6,10 +6,10 @@ export class PopupWithImage extends Popup {
     this._openedImage = this._popupSelector.querySelector('.popup__image')
     this._popupImageText = this._popupSelector.querySelector('.popup__title-img')
   }
-  open(src, alt) {
+  open(link, name) {
+    this._openedImage.src = link
+    this._popupImageText.alt = name
+    this._popupImageText.textContent = name
     super.open()
-    this._openedImage.src = src
-    this._popupImageText.alt = alt
-    this._popupImageText.textContent = alt
   }
 }
