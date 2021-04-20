@@ -1,3 +1,4 @@
+import './index.css'
 import {
   initialCards,
   objectValidation,
@@ -22,17 +23,17 @@ import { PopupWithImage } from '../script/components/PopupWithImage.js'
 import { PopupWithForm } from '../script/components/PopupWithForm.js'
 import { UserInfo } from '../script/components/UserInfo.js'
 
-const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
-const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
+const userInfo = new UserInfo({
+  userName: '.profile__info-name',
+  userJob: '.profile__characteristic',
+})
 const profilePopup = new Popup(popupUser)
 const cardPopup = new Popup(popupCards)
 const popupWithImage = new PopupWithImage(popupImage)
 const popupWithFormUser = new PopupWithForm(popupUser, submitEditProfileForm)
 const popupWithFormCard = new PopupWithForm(popupCards, submitAddCardForm)
-const userInfo = new UserInfo({
-  userName: '.profile__info-name',
-  userJob: '.profile__characteristic',
-})
+const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
+const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
 
 popupButtonEdit.addEventListener('click', () => {
   nameInput.value = userInfo.getUserInfo().userName
@@ -61,7 +62,7 @@ function submitAddCardForm(inputData) {
       items: inputData,
       renderer: () => {
         const cardElement = new Card(inputData, '.template', handleCardClick).generateCard()
-        cardNew.addItemNew(cardElement)
+        cardNew.addNewItem(cardElement)
       },
     },
     containerSelector
@@ -72,6 +73,7 @@ function submitAddCardForm(inputData) {
 
 function handleCardClick(link, name) {
   popupWithImage.open(link, name)
+  popupWithImage.setEventListeners()
 }
 
 const cardsList = new Section(

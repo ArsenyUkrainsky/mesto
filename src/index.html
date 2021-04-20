@@ -7,18 +7,16 @@
     <meta name="description" content="Mesto" />
     <meta name="keywords" content="место, интерактивная страница" />
     <meta name="author" content="Арсений Украинский" />
-    <link rel="stylesheet" href="pages/index.css" />
-    <link rel="shortcut icon" type="image/svg" href="/images/logo.svg" />
     <title>Mesto</title>
   </head>
   <body class="root">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Место" />
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Место" />
     </header>
 
     <main class="page">
       <section class="profile">
-        <img class="profile__avatar" src="./images/image-avatar.jpg" alt="Аватар пользователя" />
+        <img class="profile__avatar" src="<%=require('./images/image-avatar.jpg')%>" alt="Аватар пользователя" />
         <div class="profile__info">
           <div class="profile__info-edit">
             <h1 class="profile__info-name">Жак-Ив Кусто</h1>
@@ -125,8 +123,5 @@
         </div>
       </li>
     </template>
-
-    <!-- Подключение скрипта -->
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>

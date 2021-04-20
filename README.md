@@ -25,6 +25,6 @@
 * Перебор массива. Метод map (При загрузке на странице 6 карточек, которые добавляет JavaScript)
 * Организация кода (class). Классы Section, Popup, PopupWithForm, PopupWithImage, UserInfo, Card, FormValidator. Каждый из них выполняет строго одну задачу. Всё, что относится к решению этой задачи, находится внутри класса. Все классы вынесены в отдельные файлы. В файле index.js только создание классов и добавление некоторых обработчиков.
 * Использование Live Server в VSCode
-* Инициализация npm. Настройка Webpack. Установлены webpack, webpack-cli и webpack-dev-server. Cделано две сборки build и dev. 
+* Инициализация npm. Настройка Webpack. Установлены webpack, webpack-cli и webpack-dev-server, NPM-пакет — Babel.  Cделано две сборки build и dev. 
 
 [Место на GitHub Pages](https://arseniyukrainskiy.github.io/mesto/)

@@ -4,11 +4,11 @@ export class UserInfo {
     this._userJob = document.querySelector(userJob)
   }
   getUserInfo() {
-    const userProfile = {
+    const userData = {
       userName: this._userName.textContent,
       userJob: this._userJob.textContent,
     }
-    return userProfile
+    return userData
   }
   setUserInfo(inputData) {
     this._userName.textContent = inputData.name

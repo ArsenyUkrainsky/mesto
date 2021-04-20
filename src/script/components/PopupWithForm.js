@@ -9,15 +9,16 @@ export class PopupWithForm extends Popup {
   }
   _getInputValues = () => {
     const inputData = [{}]
-    const inputValue = this._allInputFields.forEach((input) => {
-      inputData[input.name] = input.value
+    this._allInputFields.forEach((inputElement) => {
+      const temp = inputElement.name // получаем имя элемента инпута во временную переменную
+      inputData[temp] = inputElement.value
     })
     return inputData
   }
   _submitForm = (evt) => {
     evt.preventDefault()
-    const inputData = this._getInputValues()
-    this._callBackSubmitForm(inputData)
+    const data = this._getInputValues()
+    this._callBackSubmitForm(data)
   }
   setEventListeners() {
     super.setEventListeners()
