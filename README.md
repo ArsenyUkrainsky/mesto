@@ -27,4 +27,4 @@
 * Использование Live Server в VSCode
 * Инициализация npm. Настройка Webpack. Установлены webpack, webpack-cli и webpack-dev-server, NPM-пакет — Babel.  Cделано две сборки build и dev. 
 
-[Место на GitHub Pages](https://arseniyukrainskiy.github.io/mesto/)
+
