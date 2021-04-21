@@ -39,29 +39,19 @@ export const initialCards = [
 ]
 const popupButtonEdit = document.querySelector('.profile__button-edit')
 const popupButtonAdd = document.querySelector('.profile__button-add')
-const popupUser = document.querySelector('#user')
-const popupCards = document.querySelector('#cards')
-const popupImage = document.querySelector('#image')
 const formElement = document.querySelector('.popup__form')
 const nameInput = formElement.querySelector('.popup__field_input_name')
 const jobInput = formElement.querySelector('.popup__field_input_characteristic')
 const formElementCards = document.querySelector('.popup__form_cards')
 const formElementEdit = document.querySelector('.popup__form_edit')
-const inputCardName = formElementCards.querySelector('.popup__field_input_place')
-const inputCardUrl = formElementCards.querySelector('.popup__field_input_url')
 const containerSelector = document.querySelector('.elements__places')
 
 export {
   popupButtonEdit,
   popupButtonAdd,
-  popupUser,
-  popupCards,
-  popupImage,
   nameInput,
   jobInput,
   formElementCards,
   formElementEdit,
-  inputCardName,
-  inputCardUrl,
   containerSelector,
 }

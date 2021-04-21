@@ -8,10 +8,10 @@ export class PopupWithForm extends Popup {
     this._allInputFields = this._form.querySelectorAll('.popup__field')
   }
   _getInputValues = () => {
-    const inputData = [{}]
+    const inputData = {}
     this._allInputFields.forEach((inputElement) => {
-      const temp = inputElement.name // получаем имя элемента инпута во временную переменную
-      inputData[temp] = inputElement.value
+      const { name, value } = inputElement
+      inputData[name] = value
     })
     return inputData
   }

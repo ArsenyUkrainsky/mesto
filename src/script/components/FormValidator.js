@@ -71,12 +71,9 @@ export class FormValidator {
   }
 
   clearErrorMessage() {
-    const errorText = this._validationForm
-      .querySelectorAll(this._textError)
-      .forEach((err) => (err.textContent = ''))
-    const errorArea = this._validationForm
-      .querySelectorAll(this._inputSelector)
-      .forEach((err) => err.classList.remove(this._inputError))
+    this._inputList.forEach((inputElement) => {
+      this._hideError(inputElement)
+    })
     this._toggleButton()
   }
 }
