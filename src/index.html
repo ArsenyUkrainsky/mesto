@@ -54,8 +54,9 @@
               placeholder="Имя"
               minlength="2"
               maxlength="40"
+              id="edit"
             />
-            <span class="popup__error" id="name-error"></span>
+            <span class="popup__error" id="edit-error"></span>
             <input
               type="text"
               name="characteristic"
@@ -64,6 +65,7 @@
               placeholder="О себе"
               minlength="2"
               maxlength="200"
+              id="characteristic"
             />
             <span class="popup__error" id="characteristic-error"></span>
           </fieldset>
@@ -89,14 +91,16 @@
               minlength="2"
               maxlength="30"
               autocomplete="off"
+              id="cards"
             />
-            <span class="popup__error" id="name-error"></span>
+            <span class="popup__error" id="cards-error"></span>
             <input
               type="url"
               name="link"
               required
               class="popup__field popup__field_input_url"
               placeholder="Ссылка на картинку"
+              id="link"
             />
             <span class="popup__error" id="link-error"></span>
           </fieldset>
