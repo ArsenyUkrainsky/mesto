@@ -16,6 +16,17 @@ import { Section } from '../script/components/Section.js'
 import { PopupWithImage } from '../script/components/PopupWithImage.js'
 import { PopupWithForm } from '../script/components/PopupWithForm.js'
 import { UserInfo } from '../script/components/UserInfo.js'
+import { Api } from '../script/components/Api.js'
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-23',
+  headers: {
+    Authorization: 'c612ee53-bfd9-4a06-b181-f06567a06aa2',
+    'Content-Type': 'application/json',
+  },
+})
+api.getUserInfo()
+api.getInitialCards()
 
 const userInfo = new UserInfo({
   userName: '.profile__info-name',
