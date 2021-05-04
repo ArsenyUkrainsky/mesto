@@ -1,12 +1,11 @@
 // отвечает за отрисовку элементов на странице
 export class Section {
-  constructor({ items, renderer }, containerSelector) {
+  constructor({ renderer }, containerSelector) {
     this._container = containerSelector
-    this._items = items
     this._renderer = renderer
   }
-  renderItems() {
-    this._items.forEach((item) => {
+  renderItems(item) {
+    item.forEach((item) => {
       this._renderer(item)
     })
   }

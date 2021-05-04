@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor({ userName, userJob }) {
+  constructor({ userName, userJob, userAvatar }) {
     this._userName = document.querySelector(userName)
     this._userJob = document.querySelector(userJob)
+    this._userAvatar = document.querySelector(userAvatar)
   }
   getUserInfo() {
     const userData = {
@@ -12,6 +13,6 @@ export class UserInfo {
   }
   setUserInfo(inputData) {
     this._userName.textContent = inputData.name
-    this._userJob.textContent = inputData.characteristic
+    this._userJob.textContent = inputData.about
   }
 }

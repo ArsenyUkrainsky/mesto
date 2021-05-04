@@ -1,6 +1,5 @@
 import './index.css'
 import {
-  initialCards,
   objectValidation,
   popupButtonEdit,
   popupButtonAdd,
@@ -15,6 +14,7 @@ import { FormValidator } from '../script/components/FormValidator.js'
 import { Section } from '../script/components/Section.js'
 import { PopupWithImage } from '../script/components/PopupWithImage.js'
 import { PopupWithForm } from '../script/components/PopupWithForm.js'
+import { PopupWithSubmit } from '../script/components/PopupWithSubmit.js'
 import { UserInfo } from '../script/components/UserInfo.js'
 import { Api } from '../script/components/Api.js'
 
@@ -25,21 +25,9 @@ const api = new Api({
     'Content-Type': 'application/json',
   },
 })
-api.getUserInfo()
-api.getInitialCards()
 
-const userInfo = new UserInfo({
-  userName: '.profile__info-name',
-  userJob: '.profile__characteristic',
-})
-const popupWithImage = new PopupWithImage('#image')
-const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
-const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
-const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
-const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
 const cardsList = new Section(
   {
-    items: initialCards,
     renderer: (cardItem) => {
       const cardElement = createCard(cardItem)
       cardsList.addItem(cardElement)
@@ -48,12 +36,32 @@ const cardsList = new Section(
   containerSelector
 )
 
-cardsList.renderItems()
-popupWithFormCard.setEventListeners()
-popupWithFormUser.setEventListeners()
-popupWithImage.setEventListeners()
-addCardFormValidator.enableValidation()
-editProfileFormValidator.enableValidation()
+const cards = api.getInitialCards()
+cards
+  .then((card) => {
+    cardsList.renderItems(card)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+const userInfo = new UserInfo({
+  userName: '.profile__info-name',
+  userJob: '.profile__characteristic',
+  userAvatar: '.profile__avatar',
+})
+
+const userData = api.getUser()
+userData
+  .then((info) => {
+    userInfo.setUserInfo(info)
+    console.log(info._id);
+    const infId = info._id
+    return infId
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 popupButtonEdit.addEventListener('click', () => {
   nameInput.value = userInfo.getUserInfo().userName
@@ -62,18 +70,45 @@ popupButtonEdit.addEventListener('click', () => {
   editProfileFormValidator.clearErrorMessage()
 })
 
+function submitEditProfileForm(data) {
+  api
+    .editUserInfo(data)
+    .then((inputData) => {
+      userInfo.setUserInfo(inputData)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  popupWithFormUser.close()
+}
+const popupWithImage = new PopupWithImage('#image')
+const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
+const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
+const popupWithSubmit = new PopupWithSubmit('#card-delete')
+const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
+const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
+
+popupWithSubmit.setEventListeners()
+popupWithFormCard.setEventListeners()
+popupWithFormUser.setEventListeners()
+popupWithImage.setEventListeners()
+addCardFormValidator.enableValidation()
+editProfileFormValidator.enableValidation()
+
 popupButtonAdd.addEventListener('click', () => {
   popupWithFormCard.open()
   addCardFormValidator.clearErrorMessage()
 })
 
-function submitEditProfileForm(inputData) {
-  userInfo.setUserInfo(inputData)
-  popupWithFormUser.close()
-}
-
 function submitAddCardForm(inputData) {
-  cardsList.addNewItem(createCard(inputData))
+  api
+    .createNewCard(inputData)
+    .then((card) => {
+      cardsList.addNewItem(createCard(card))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   popupWithFormCard.close()
 }
 
@@ -81,8 +116,20 @@ function handleCardClick(link, name) {
   popupWithImage.open(link, name)
 }
 
+function handleCardDelete() {
+  popupWithSubmit.open()
+}
+
+
 function createCard(cardItem) {
-  const newCardElement = new Card(cardItem, '.template', handleCardClick)
+  const newCardElement = new Card(
+    cardItem,
+    '.template',
+    handleCardClick,
+    //handleCardLike,
+    handleCardDelete,
+
+  )
   const cardElement = newCardElement.generateCard()
   return cardElement
 }
