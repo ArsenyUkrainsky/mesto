@@ -67,6 +67,7 @@ cards
 
 const popupWithImage = new PopupWithImage('#image')
 const cardInfoSubmit = new PopupWithSubmit('#card-delete')
+
 const popupWithFormAvatar = new PopupWithForm('#edit-profile', submitEditProfileAvatar)
 const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
 const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
@@ -87,6 +88,7 @@ popupButtonAvatar.addEventListener('click', () => {
 })
 
 function submitEditProfileAvatar(newAvatar) {
+  popupWithFormAvatar.setLoadingInterface(1)
   api
     .updateAvatar(newAvatar)
     .then((data) => {
@@ -96,6 +98,7 @@ function submitEditProfileAvatar(newAvatar) {
     .catch((err) => {
       console.log(`Ошибка при редактировании аватара: ${err}`)
     })
+    .finally(() => popupWithFormAvatar.setLoadingInterface(0))
 }
 
 popupButtonEdit.addEventListener('click', () => {
@@ -106,15 +109,17 @@ popupButtonEdit.addEventListener('click', () => {
 })
 
 function submitEditProfileForm(data) {
+  popupWithFormUser.setLoadingInterface(1)
   api
     .editUserInfo(data)
     .then((inputData) => {
       userInfo.setUserInfo(inputData)
+      popupWithFormUser.close()
     })
     .catch((err) => {
       console.log(`Ошибка при редактировании профиля: ${err}`)
     })
-  popupWithFormUser.close()
+    .finally(() => popupWithFormUser.setLoadingInterface(0))
 }
 
 popupButtonAdd.addEventListener('click', () => {
@@ -123,15 +128,17 @@ popupButtonAdd.addEventListener('click', () => {
 })
 
 function submitAddCardForm(inputData) {
+  popupWithFormCard.setLoadingInterface(1)
   api
     .createNewCard(inputData)
     .then((card) => {
       cardsList.addNewItem(createCard(card))
+      popupWithFormCard.close()
     })
     .catch((err) => {
       console.log(`Ошибка при добавлении новой карточки: ${err}`)
     })
-  popupWithFormCard.close()
+    .finally(() => popupWithFormCard.setLoadingInterface(0))
 }
 
 function createCard(data) {
