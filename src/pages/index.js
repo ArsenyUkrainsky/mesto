@@ -1,5 +1,6 @@
 import './index.css'
 import {
+  popupButtonAvatar,
   objectValidation,
   popupButtonEdit,
   popupButtonAdd,
@@ -7,6 +8,7 @@ import {
   jobInput,
   formElementCards,
   formElementEdit,
+  formElementAvatar,
   containerSelector,
 } from '../script/utils/constants.js'
 import { Card } from '../script/components/Card.js'
@@ -18,12 +20,20 @@ import { PopupWithSubmit } from '../script/components/PopupWithSubmit.js'
 import { UserInfo } from '../script/components/UserInfo.js'
 import { Api } from '../script/components/Api.js'
 
+let myId = null
+
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-23',
   headers: {
     Authorization: 'c612ee53-bfd9-4a06-b181-f06567a06aa2',
     'Content-Type': 'application/json',
   },
+})
+
+const userInfo = new UserInfo({
+  userName: '.profile__info-name',
+  userJob: '.profile__characteristic',
+  userAvatar: '.profile__avatar-edit',
 })
 
 const cardsList = new Section(
@@ -36,32 +46,57 @@ const cardsList = new Section(
   containerSelector
 )
 
+const userData = api.getUser()
+userData
+  .then((info) => {
+    userInfo.setUserInfo(info)
+    myId = info._id
+  })
+  .catch((err) => {
+    console.log(`Ошибка при получении данных пользователя: ${err}`)
+  })
+
 const cards = api.getInitialCards()
 cards
   .then((card) => {
     cardsList.renderItems(card)
   })
   .catch((err) => {
-    console.log(err)
+    console.log(`Ошибка при получении данных карточек: ${err}`)
   })
 
-const userInfo = new UserInfo({
-  userName: '.profile__info-name',
-  userJob: '.profile__characteristic',
-  userAvatar: '.profile__avatar',
+const popupWithImage = new PopupWithImage('#image')
+const cardInfoSubmit = new PopupWithSubmit('#card-delete')
+const popupWithFormAvatar = new PopupWithForm('#edit-profile', submitEditProfileAvatar)
+const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
+const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
+
+const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
+const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
+const loadAvatarFormValidator = new FormValidator(objectValidation, formElementAvatar)
+
+popupWithImage.setEventListeners()
+cardInfoSubmit.setEventListeners()
+popupWithFormAvatar.setEventListeners()
+popupWithFormUser.setEventListeners()
+popupWithFormCard.setEventListeners()
+
+popupButtonAvatar.addEventListener('click', () => {
+  loadAvatarFormValidator.clearErrorMessage()
+  popupWithFormAvatar.open()
 })
 
-const userData = api.getUser()
-userData
-  .then((info) => {
-    userInfo.setUserInfo(info)
-    console.log(info._id);
-    const infId = info._id
-    return infId
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+function submitEditProfileAvatar(newAvatar) {
+  api
+    .updateAvatar(newAvatar)
+    .then((data) => {
+      userInfo.renderNewAvatar(data)
+      popupWithFormAvatar.close()
+    })
+    .catch((err) => {
+      console.log(`Ошибка при редактировании аватара: ${err}`)
+    })
+}
 
 popupButtonEdit.addEventListener('click', () => {
   nameInput.value = userInfo.getUserInfo().userName
@@ -77,23 +112,10 @@ function submitEditProfileForm(data) {
       userInfo.setUserInfo(inputData)
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка при редактировании профиля: ${err}`)
     })
   popupWithFormUser.close()
 }
-const popupWithImage = new PopupWithImage('#image')
-const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
-const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
-const popupWithSubmit = new PopupWithSubmit('#card-delete')
-const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
-const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
-
-popupWithSubmit.setEventListeners()
-popupWithFormCard.setEventListeners()
-popupWithFormUser.setEventListeners()
-popupWithImage.setEventListeners()
-addCardFormValidator.enableValidation()
-editProfileFormValidator.enableValidation()
 
 popupButtonAdd.addEventListener('click', () => {
   popupWithFormCard.open()
@@ -107,29 +129,59 @@ function submitAddCardForm(inputData) {
       cardsList.addNewItem(createCard(card))
     })
     .catch((err) => {
-      console.log(err)
+      console.log(`Ошибка при добавлении новой карточки: ${err}`)
     })
   popupWithFormCard.close()
 }
 
-function handleCardClick(link, name) {
-  popupWithImage.open(link, name)
-}
-
-function handleCardDelete() {
-  popupWithSubmit.open()
-}
-
-
-function createCard(cardItem) {
+function createCard(data) {
   const newCardElement = new Card(
-    cardItem,
+    {
+      data,
+      handleCardClick: (link, name) => {
+        popupWithImage.open(link, name)
+      },
+      handleCardLike: (card, checkMyLike) => {
+        if (checkMyLike) {
+          return api
+            .deleteLike(card._id)
+            .then((newCardData) => {
+              newCardElement.updateCardData(newCardData)
+              newCardElement.setLikeDisabled()
+              return newCardData
+            })
+            .catch((err) => console.log(`Ошибка при удалении лайка: ${err}`))
+        }
+        {
+          return api
+            .likeCard(card._id)
+            .then((newCardData) => {
+              newCardElement.updateCardData(newCardData)
+              newCardElement.setLikeActive()
+              return newCardData
+            })
+            .catch((err) => console.log(`Ошибка при доавлении лайка: ${err}`))
+        }
+      },
+      handleCardDelete: (cardId, cardElement) => {
+        cardInfoSubmit.open()
+        cardInfoSubmit.setSubmitAction(() => {
+          api
+            .removeCard(cardId)
+            .then(() => {
+              cardElement.remove()
+              cardInfoSubmit.close()
+            })
+            .catch((err) => console.log(`Ошибка при удалении карточки: ${err}`))
+        })
+      },
+    },
     '.template',
-    handleCardClick,
-    //handleCardLike,
-    handleCardDelete,
-
+    myId
   )
   const cardElement = newCardElement.generateCard()
   return cardElement
 }
+addCardFormValidator.enableValidation()
+editProfileFormValidator.enableValidation()
+loadAvatarFormValidator.enableValidation()

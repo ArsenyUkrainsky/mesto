@@ -11,7 +11,7 @@
 
 /* Подключение блоков профиля с именем аватаром и характеристикой */
 @import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__avatar/profile__avatar.css);
+
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__info-edit/profile__info-edit.css);
 @import url(../blocks/profile/__info-name/profile__info-name.css);
@@ -60,3 +60,4 @@
 
 @import url(../blocks/element/__like-count/element__like-count.css);
 @import url(../blocks/popup/__title-delete/popup__title-delete.css);
+@import url(../blocks/profile/__avatar-edit/profile__avatar-edit.css);
