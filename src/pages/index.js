@@ -48,9 +48,10 @@ const cardsList = new Section(
 //Promise.all
 Promise.all([api.getUser(), api.getInitialCards()])
   .then((data) => {
-    userInfo.setUserInfo(data[0])
-    myId = data[0]._id
-    cardsList.renderItems(data[1])
+    const [userData, cardsData] = data
+    userInfo.setUserInfo(userData)
+    myId = userData._id
+    cardsList.renderItems(cardsData)
   })
   .catch((err) => {
     console.log(`Ошибка при получении данных: ${err}`)
