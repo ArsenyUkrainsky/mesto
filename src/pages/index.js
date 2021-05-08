@@ -45,24 +45,15 @@ const cardsList = new Section(
   },
   containerSelector
 )
-
-const userData = api.getUser()
-userData
-  .then((info) => {
-    userInfo.setUserInfo(info)
-    myId = info._id
+//Promise.all
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then((data) => {
+    userInfo.setUserInfo(data[0])
+    myId = data[0]._id
+    cardsList.renderItems(data[1])
   })
   .catch((err) => {
-    console.log(`Ошибка при получении данных пользователя: ${err}`)
-  })
-
-const cards = api.getInitialCards()
-cards
-  .then((card) => {
-    cardsList.renderItems(card)
-  })
-  .catch((err) => {
-    console.log(`Ошибка при получении данных карточек: ${err}`)
+    console.log(`Ошибка при получении данных: ${err}`)
   })
 
 const popupWithImage = new PopupWithImage('#image')
@@ -78,6 +69,7 @@ const loadAvatarFormValidator = new FormValidator(objectValidation, formElementA
 
 popupWithImage.setEventListeners()
 cardInfoSubmit.setEventListeners()
+
 popupWithFormAvatar.setEventListeners()
 popupWithFormUser.setEventListeners()
 popupWithFormCard.setEventListeners()
