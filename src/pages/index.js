@@ -22,6 +22,10 @@ import { Api } from '../script/components/Api.js'
 
 let myId = null
 
+const popupWithFormAvatar = new PopupWithForm('#edit-profile', submitEditProfileAvatar)
+const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
+const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
+
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-23',
   headers: {
@@ -60,10 +64,6 @@ Promise.all([api.getUser(), api.getInitialCards()])
 const popupWithImage = new PopupWithImage('#image')
 const cardInfoSubmit = new PopupWithSubmit('#card-delete')
 
-const popupWithFormAvatar = new PopupWithForm('#edit-profile', submitEditProfileAvatar)
-const popupWithFormUser = new PopupWithForm('#user', submitEditProfileForm)
-const popupWithFormCard = new PopupWithForm('#cards', submitAddCardForm)
-
 const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
 const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
 const loadAvatarFormValidator = new FormValidator(objectValidation, formElementAvatar)
@@ -81,7 +81,7 @@ popupButtonAvatar.addEventListener('click', () => {
 })
 
 function submitEditProfileAvatar(newAvatar) {
-  popupWithFormAvatar.setLoadingInterface(1)
+  popupWithFormAvatar.setLoadingInterface(true)
   api
     .updateAvatar(newAvatar)
     .then((data) => {
@@ -91,7 +91,7 @@ function submitEditProfileAvatar(newAvatar) {
     .catch((err) => {
       console.log(`Ошибка при редактировании аватара: ${err}`)
     })
-    .finally(() => popupWithFormAvatar.setLoadingInterface(0))
+    .finally(() => popupWithFormAvatar.setLoadingInterface(false))
 }
 
 popupButtonEdit.addEventListener('click', () => {
@@ -102,7 +102,7 @@ popupButtonEdit.addEventListener('click', () => {
 })
 
 function submitEditProfileForm(data) {
-  popupWithFormUser.setLoadingInterface(1)
+  popupWithFormUser.setLoadingInterface(true)
   api
     .editUserInfo(data)
     .then((inputData) => {
@@ -112,7 +112,7 @@ function submitEditProfileForm(data) {
     .catch((err) => {
       console.log(`Ошибка при редактировании профиля: ${err}`)
     })
-    .finally(() => popupWithFormUser.setLoadingInterface(0))
+    .finally(() => popupWithFormUser.setLoadingInterface(false))
 }
 
 popupButtonAdd.addEventListener('click', () => {
@@ -121,7 +121,7 @@ popupButtonAdd.addEventListener('click', () => {
 })
 
 function submitAddCardForm(inputData) {
-  popupWithFormCard.setLoadingInterface(1)
+  popupWithFormCard.setLoadingInterface(true)
   api
     .createNewCard(inputData)
     .then((card) => {
@@ -131,7 +131,7 @@ function submitAddCardForm(inputData) {
     .catch((err) => {
       console.log(`Ошибка при добавлении новой карточки: ${err}`)
     })
-    .finally(() => popupWithFormCard.setLoadingInterface(0))
+    .finally(() => popupWithFormCard.setLoadingInterface(false))
 }
 
 function createCard(data) {
