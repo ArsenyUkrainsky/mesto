@@ -4,7 +4,7 @@ export class PopupWithForm extends Popup {
   constructor(popupSelector, callBackSubmitForm) {
     super(popupSelector)
     this._callBackSubmitForm = callBackSubmitForm
-    this._form = this._popupSelector.querySelector('.popup__form')
+    this._form = this._popup.querySelector('.popup__form')
     this._allInputFields = this._form.querySelectorAll('.popup__field')
     this._submitButton = this._form.querySelector('.popup__submit')
     this._submitButtonTextDefault = this._submitButton.textContent
@@ -31,9 +31,9 @@ export class PopupWithForm extends Popup {
     this._form.reset()
   }
 
-  setLoadingInterface(state) {
+  setLoadingInterface(state, buttonText = `Сохранение...`) {
     if (state) {
-      this._submitButton.textContent = `Сохранение...`
+      this._submitButton.textContent = buttonText
     } else {
       this._submitButton.textContent = this._submitButtonTextDefault
     }

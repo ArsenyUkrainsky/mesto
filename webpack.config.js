@@ -9,6 +9,12 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  devServer: {
+    port: 8000,
+    historyApiFallback: true,
+    open: true,
+    /* hot: true, */
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },

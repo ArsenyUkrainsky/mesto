@@ -56,20 +56,24 @@ Promise.all([api.getUser(), api.getInitialCards()])
     userInfo.setUserInfo(userData)
     myId = userData._id
     cardsList.renderItems(cardsData)
+
+    addCardFormValidator.enableValidation()
+    editProfileFormValidator.enableValidation()
+    loadAvatarFormValidator.enableValidation()
   })
   .catch((err) => {
     console.log(`Ошибка при получении данных: ${err}`)
   })
 
 const popupWithImage = new PopupWithImage('#image')
-const cardInfoSubmit = new PopupWithSubmit('#card-delete')
+const confirmationPopup = new PopupWithSubmit('#card-delete')
 
 const addCardFormValidator = new FormValidator(objectValidation, formElementCards)
 const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
 const loadAvatarFormValidator = new FormValidator(objectValidation, formElementAvatar)
 
 popupWithImage.setEventListeners()
-cardInfoSubmit.setEventListeners()
+confirmationPopup.setEventListeners()
 
 popupWithFormAvatar.setEventListeners()
 popupWithFormUser.setEventListeners()
@@ -164,15 +168,17 @@ function createCard(data) {
         }
       },
       handleCardDelete: (cardId, cardElement) => {
-        cardInfoSubmit.open()
-        cardInfoSubmit.setSubmitAction(() => {
+        confirmationPopup.open()
+        confirmationPopup.setSubmitAction(() => {
+          confirmationPopup.setLoadingInterface(true)
           api
             .removeCard(cardId)
             .then(() => {
               cardElement.remove()
-              cardInfoSubmit.close()
+              confirmationPopup.close()
             })
             .catch((err) => console.log(`Ошибка при удалении карточки: ${err}`))
+            .finally(() => confirmationPopup.setLoadingInterface(false))
         })
       },
     },
@@ -182,6 +188,3 @@ function createCard(data) {
   const cardElement = newCardElement.generateCard()
   return cardElement
 }
-addCardFormValidator.enableValidation()
-editProfileFormValidator.enableValidation()
-loadAvatarFormValidator.enableValidation()

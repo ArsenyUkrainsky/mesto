@@ -3,29 +3,27 @@ export class Api {
     this._url = config.url
     this._headers = config.headers
   }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
+
   //Загрузка информации о пользователе с сервера
   getUser() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Загрузка карточек с сервера
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Редактирование профиля
   editUserInfo(data) {
@@ -36,12 +34,7 @@ export class Api {
         name: data.name,
         about: data.about,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Добавление новой карточки
   createNewCard(data) {
@@ -52,24 +45,14 @@ export class Api {
         name: data.name,
         link: data.link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Удаление карточки
   removeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
 
   //Постановка и снятие лайка
@@ -78,24 +61,14 @@ export class Api {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Снять лайк
   deleteLike(cardId) {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
   //Обновление аватара пользователя
   updateAvatar(newAvatar) {
@@ -103,13 +76,8 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: newAvatar.link,
+        avatar: newAvatar['avatar-link'],
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+    }).then(this._checkResponse)
   }
 }

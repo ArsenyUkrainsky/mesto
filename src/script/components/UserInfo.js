@@ -12,7 +12,7 @@ export class UserInfo {
     return userData
   }
   setUserInfo(inputData) {
-    this._userAvatar.style.backgroundImage = `url(${inputData.avatar})`
+    this.renderNewAvatar(inputData)
     this._userName.textContent = inputData.name
     this._userJob.textContent = inputData.about
     //this._userAvatar.style.backgroundImage = "url('https://cs7062.vk.me/c540107/v540107359/2729/fYQlS_23QdA.jpg')"
