@@ -56,10 +56,6 @@ Promise.all([api.getUser(), api.getInitialCards()])
     userInfo.setUserInfo(userData)
     myId = userData._id
     cardsList.renderItems(cardsData)
-
-    addCardFormValidator.enableValidation()
-    editProfileFormValidator.enableValidation()
-    loadAvatarFormValidator.enableValidation()
   })
   .catch((err) => {
     console.log(`Ошибка при получении данных: ${err}`)
@@ -72,9 +68,12 @@ const addCardFormValidator = new FormValidator(objectValidation, formElementCard
 const editProfileFormValidator = new FormValidator(objectValidation, formElementEdit)
 const loadAvatarFormValidator = new FormValidator(objectValidation, formElementAvatar)
 
+addCardFormValidator.enableValidation()
+editProfileFormValidator.enableValidation()
+loadAvatarFormValidator.enableValidation()
+
 popupWithImage.setEventListeners()
 confirmationPopup.setEventListeners()
-
 popupWithFormAvatar.setEventListeners()
 popupWithFormUser.setEventListeners()
 popupWithFormCard.setEventListeners()
