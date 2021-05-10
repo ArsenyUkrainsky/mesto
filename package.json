@@ -4,6 +4,8 @@
   "description": "mesto,yandex,praktikum",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "build": "rm -rf dist && webpack --mode production",
     "dev": "webpack serve --mode development"
   },
@@ -30,6 +32,7 @@
     "css-loader": "^5.2.4",
     "cssnano": "^5.0.1",
     "file-loader": "^6.2.0",
+    "gh-pages": "^3.1.0",
     "html-webpack-plugin": "^5.3.1",
     "mini-css-extract-plugin": "^1.5.0",
     "postcss": "^8.2.10",
