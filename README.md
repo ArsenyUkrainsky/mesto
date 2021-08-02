@@ -27,4 +27,4 @@
 :small_blue_diamond: npm run dev 
   
 
-🔗[Место на GitHub Pages](https://arseniyukrainskiy.github.io/mesto/)
+🔗[Место на GitHub Pages](https://arsenyukrainsky.github.io/mesto/)
